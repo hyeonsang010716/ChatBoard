@@ -3,7 +3,6 @@ import os
 import base64
 
 def img_model() -> list:
-    # 환경 변수 로드
     load_dotenv()
     current_directory = os.getcwd()
 
