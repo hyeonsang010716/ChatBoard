@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.logo {
+    padding: 10px;
+    width: 244px;
+    height: auto;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.chatbox {
+    width: 75%;
+    background-color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.user .message-content {
+    background-color: #0084ff;
+    color: #ffffff;
+    margin-left: auto;
+}
+
+.partner .message-content {
+    background-color: #f1f0f0;
+    color: #333333;
+}
+
+
+.message-content::before {
+    content: "";
+    position: absolute;
+    left: 10px; /* Space from the left edge */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px; /* Image width */
+    height: 30px; /* Image height */
+    background-image: url('https://i.ibb.co/W0wQy5Z/icon.png');
+    background-size: cover; /* Ensure the image covers the element */
+    background-position: center; /* Center the image */
+    border-radius: 50%; /* Round the image */
+}
