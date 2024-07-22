@@ -1,22 +1,10 @@
-from langchain_openai import AzureChatOpenAI
-from langchain.schema import HumanMessage, AIMessage, SystemMessage
-
 from dotenv import load_dotenv
 import os
 import base64
 
 def img_model() -> list:
-    # 환경 변수 로드
     load_dotenv()
     current_directory = os.getcwd()
-
-    # Azure OpenAI 클라이언트 설정
-    client = AzureChatOpenAI(
-        openai_api_key = os.getenv("AZURE_OPENAI_API_KEY"),
-        openai_api_version = "2023-05-15",
-        azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"),
-        deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT")
-    )
 
     def encode_image(image_path):
         with open(image_path, "rb") as image_file:
