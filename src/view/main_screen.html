@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>ChatBoard</title>
-    <!-- css 적용할 링크 -->
+    <link rel="stylesheet" href="../static/css/main_screen.css">
 </head>
 <body>
     <div id="container">
         <div id="header">
             <div id="logo">
-                <img src="https://i.ibb.co/DWRWkFh/logo.png" alt="logo" width="244px">
+                <img src="https://i.ibb.co/DWRWkFh/logo.png" alt="logo">
             </div>
             <div id="search_area">
-
+                <form id="search_form">
+                    <input type="text" alt="search_area">
+                    <button type="submit" class="search_icon">🔍</button>
+                </form>
             </div>
         </div>
         <div id="contents">
@@ -20,24 +23,7 @@
             <div id="response"></div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('apiForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // 폼의 기본 제출 동작을 막음
-
-            const formData = new FormData(this);
-
-            fetch(this.action, {
-                method: this.method,
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('response').innerText = JSON.stringify(data, null, 2);
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    </script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="../static/js/main_screen.js"></script>
 </body>
 </html>
-
