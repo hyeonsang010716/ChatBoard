@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatBoard</title>
+    <!-- css 적용할 링크 -->
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div id="logo">
+                <img src="https://i.ibb.co/DWRWkFh/logo.png" alt="logo" width="244px">
+            </div>
+            <div id="search_area">
+
+            </div>
+        </div>
+        <div id="contents">
+            <form id="apiForm" action="http://apis.data.go.kr/6480000/gyeongnammarket/gyeongnammarketList" method="post">
+                <input type="text" name="test">
+                <button type="submit">API 호출</button>
+            </form>
+            <div id="response"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('apiForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 막음
+
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: this.method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
