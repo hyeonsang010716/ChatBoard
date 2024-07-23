@@ -29,12 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     function sendQuestionQuery() {
-        fetch('/chatboard/chatting') 
+        const data = {
+            message : messageInput.value.trim()
+        }
+        const queryString = new URLSearchParams(data).toString();        
+        fetch('/chatboard/chatting?' + queryString) 
         .then(response => {
-            if (!response.ok) {
+            if (!response) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
-            return response.text();
+            return response.text(); 
             })
             .then(data => {
                 messageInput.value = '';

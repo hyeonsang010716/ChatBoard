@@ -1,6 +1,9 @@
 from flask import Blueprint , render_template , request, redirect , url_for , jsonify
 import os
 import json
+
+from model.test_llm import test_llm
+
 chatboard = Blueprint('chatboard' , __name__)
 
 @chatboard.route('/main-page')
@@ -43,7 +46,16 @@ def game_json():
     print(data)
     print(jsonify(data))
     return jsonify(data)
-@chatboard.route('/chatting' , methods=['GET'])
-def chatting():
-    text = "정말 재밌겠군요"
-    return text
+@chatboard.route('/chatting', methods=['GET'])
+def chat():
+    try:
+        message = request.args.get('message')
+        if not message:
+            return jsonify({'error': 'No message provided'}), 400
+
+        # 메시지 처리 로직 추가
+        response = "서버 응답: " + message
+        return test_llm(response), 200
+    except Exception as e:
+        chatboard.logger.error(f"Unhandled exception: {e}")
+        return jsonify({'error': str(e)}), 500
