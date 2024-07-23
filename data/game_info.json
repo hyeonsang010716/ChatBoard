@@ -31,6 +31,36 @@
       "image": "https://boardlife.co.kr/wys2/swf_upload/2022/03/20/1647729611682344_lg_N_210x210_100_5_.jpg"
     },
     {
+      "name": "보난자",
+      "name_eng": "Bohnanza",
+      "description": "다양한 콩을 재배하고 거래하여 가장 많은 금화를 모으는 게임입니다.",
+      "players": "3-7",
+      "difficulty": "쉬움",
+      "age": "12세 이상",
+      "playtime": "45분",
+      "image": "https://boardlife.co.kr/wys2/swf_upload/2022/01/12/1641923933289906_lg_N_210x210_100_5_.png"
+    },
+    {
+      "name": "요트 다이스",
+      "name_eng": "yahtzee",
+      "description": "다섯 개의 주사위를 굴려 다양한 조합을 만들어 점수를 얻는 게임입니다.",
+      "players": "2-10",
+      "difficulty": "쉬움",
+      "age": "8세 이상",
+      "playtime": "30분",
+      "image": "https://boardlife.co.kr/data/boardgame_strategy/2021/01/29/1611914238-800432_N_210x210_100_5_.jpg"
+    },
+    {
+      "name": "달무티",
+      "name_eng": "dalmuti",
+      "description": "플레이어들이 각자의 카드를 내려놓아 계급을 바꾸며 최고의 자리를 차지하기 위해 경쟁하는 게임입니다.",
+      "players": "4-8",
+      "difficulty": "쉬움",
+      "age": "8세 이상",
+      "playtime": "60분",
+      "image": "https://boardlife.co.kr/wys2/swf_upload/2022/01/12/164192202871398_lg_N_210x210_100_5_.png"
+    },
+    {
       "name": "블리츠",
       "name_eng": "blitz",
       "description": "어휘력과 순발력이 필요한 스피드 단어연상 파티게임입니다.",
@@ -99,6 +129,16 @@
       "age": "10세 이상",
       "playtime": "30분",
       "image": "https://boardlife.co.kr/wys2/swf_upload/2023/11/19/1700324061316293_lg_N_210x210_100_5_.png"
+    },
+    {
+      "name": "다빈치 코드",
+      "name_eng": "davincicode",
+      "description": "숫자와 색상이 다른 카드를 맞추며 상대방의 코드를 해독하는 게임입니다.",
+      "players": "2-4",
+      "difficulty": "중간",
+      "age": "8세 이상",
+      "playtime": "30분",
+      "image": "https://boardlife.co.kr/data/boardgame_strategy/2021/02/08/1612776466-283088_N_210x210_100_5_.jpg"
     }
   ]
 }
