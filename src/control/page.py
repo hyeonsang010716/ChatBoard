@@ -3,6 +3,7 @@ import os
 import json
 
 from model.test_llm import test_llm
+from model.Ai_reply import reply
 
 chatboard = Blueprint('chatboard' , __name__)
 
@@ -53,7 +54,9 @@ def chat():
         message = request.args.get('message')
         if not message:
             return jsonify({'error': 'No message provided'}), 400
-        return test_llm(message), 200
+        # return test_llm(message), 200
+        target_file_name = "Bang.pdf"
+        return reply(message, target_file_name), 200
     except Exception as e:
         chatboard.logger.error(f"Unhandled exception: {e}")
         return jsonify({'error': str(e)}), 500
