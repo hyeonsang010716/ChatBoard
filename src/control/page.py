@@ -9,7 +9,14 @@ def mainpage():
 
 @chatboard.route('/sub-page')
 def subpage():
-    return render_template("rule_chat.html")
+    name = request.args.get('name')
+    description = request.args.get('description')
+    players = request.args.get('players')
+    difficulty = request.args.get('difficulty')
+    age = request.args.get('age')
+    playtime = request.args.get('playtime')
+    print(name, description , players, difficulty, age , playtime)
+    return render_template("rule_chat.html" , name=name, description=description , players=players , difficulty=difficulty, age=age , playtime=playtime )
 
 # @chatboard.route('/rule-chat')
 # def rule_chat():

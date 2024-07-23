@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // const data = pageResponse.json();
                     console.log('Game selected:', game.name);
                     // 성공적으로 전송 후, 특정 페이지로 이동
-                    window.location.href = '/chatboard/sub-page';
+                    postGameJson();
                 } catch (error) {
                     console.error('There was a problem with the fetch operation:', error);
                 }
@@ -108,14 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Search Text:', searchText);
 
         try {
-            const response = await fetch('/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query: searchText })
-            });
-            if (!response.ok) {
+            const response = fetchGameJson();
+            console.log("response : ",response);
+            if (!response) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             const data = await response.json();
@@ -126,3 +121,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+window.onload = function() {
+    fetchGameJson();
+};
+function fetchGameJson() {
+    fetch('/chatboard/game_json')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            return data;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function postGameJson() {
+    const data = {
+        name: "Bang!",
+        description: "와일드 웨스트를 배경으로 한 카드 게임으로, 플레이어들은 보안관, 부관, 무법자, 배신자 등의 역할을 맡아 서로를 제거하는 게임입니다.",
+        players: "4-7",
+        difficulty: "중간",
+        age: "8세 이상",
+        playtime: "20-40분"
+    };
+    const queryString = new URLSearchParams(data).toString();
+    window.location.href = '/chatboard/sub-page?' + queryString;
+}
