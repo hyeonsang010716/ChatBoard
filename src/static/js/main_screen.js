@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // const data = pageResponse.json();
                     console.log('Game selected:', game.name);
                     // 성공적으로 전송 후, 특정 페이지로 이동
-                    postGameJson(game.name);
+                    postGameJson(game);
                 } catch (error) {
                     console.error('There was a problem with the fetch operation:', error);
                 }
@@ -129,15 +129,7 @@ async function fetchGameJson() {
     }
 }
 
-function postGameJson(gameName) {
-    const data = {
-        name: "Bang!",
-        description: "와일드 웨스트를 배경으로 한 카드 게임으로, 플레이어들은 보안관, 부관, 무법자, 배신자 등의 역할을 맡아 서로를 제거하는 게임입니다.",
-        players: "4-7",
-        difficulty: "중간",
-        age: "8세 이상",
-        playtime: "20-40분"
-    };
+function postGameJson(data) {
     const queryString = new URLSearchParams(data).toString();
     window.location.href = '/chatboard/sub-page?' + queryString;
 }
