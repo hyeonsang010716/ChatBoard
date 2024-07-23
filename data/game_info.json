@@ -1,4 +1,36 @@
 {
+  "Halli Galli": {
+    "name": "Halli Galli",
+    "description": "과일 카드를 빠르게 뒤집어 정확히 5개의 같은 과일이 나오면 종을 치는 반사신경 게임입니다.",
+    "players": "2-6",
+    "difficulty": "쉬움",
+    "age": "6세 이상",
+    "playtime": "15분"
+  },
+  "Las Vegas": {
+    "name": "Las Vegas",
+    "description": "플레이어들이 카지노 주사위를 굴려 여러 카지노에 베팅하고, 가장 많은 돈을 획득하는 것이 목표인 운과 전략이 결합된 주사위 게임입니다.",
+    "players": "2-5",
+    "difficulty": "쉬움",
+    "age": "8세 이상",
+    "playtime": "30-45분"
+  },
+  "UNO": {
+    "name": "UNO",
+    "description": "숫자와 색깔이 맞는 카드를 내려놓으며 가장 먼저 모든 카드를 소진하는 것이 목표인 카드 게임입니다.",
+    "players": "2-10",
+    "difficulty": "쉬움",
+    "age": "7세 이상",
+    "playtime": "30분"
+  },
+  "Blitz": {
+    "name": "Blitz",
+    "description": "주사위를 굴려 나온 숫자 조합으로 빙고판을 채우는 주사위 게임입니다.",
+    "players": "2-6",
+    "difficulty": "쉬움",
+    "age": "7세 이상",
+    "playtime": "30분"
+  },
   "Bang": {
     "name": "Bang!",
     "description": "와일드 웨스트를 배경으로 한 카드 게임으로, 플레이어들은 보안관, 부관, 무법자, 배신자 등의 역할을 맡아 서로를 제거하는 게임입니다.",
@@ -6,5 +38,46 @@
     "difficulty": "중간",
     "age": "8세 이상",
     "playtime": "20-40분"
+  },
+  "Monopoly": {
+    "name": "Monopoly",
+    "description": "부동산 거래와 개발을 통해 재산을 늘리고 다른 플레이어들을 파산시키는 것이 목표인 보드게임입니다.",
+    "players": "2-8",
+    "difficulty": "중간",
+    "age": "8세 이상",
+    "playtime": "60-180분"
+  },
+  "Blokus": {
+    "name": "Blokus",
+    "description": "각자의 색깔로 된 도형 조각을 보드에 전략적으로 배치하여 영역을 확보하는 전략 게임입니다.",
+    "players": "2-4",
+    "difficulty": "중간",
+    "age": "7세 이상",
+    "playtime": "20-30분"
+  },
+  "Rummikub": {
+    "name": "Rummikub",
+    "description": "숫자와 색깔이 적힌 타일을 이용해 세트를 만들어 내려놓는 전략적인 타일 배치 게임입니다.",
+    "players": "2-4",
+    "difficulty": "중간",
+    "age": "8세 이상",
+    "playtime": "45-60분"
+  },
+  "Quoridor": {
+    "name": "Quoridor",
+    "description": "자신의 말을 상대방의 기본 라인에 먼저 도달시키거나, 상대방의 이동을 방해하기 위해 벽을 세우는 전략 게임입니다.",
+    "players": "2-4",
+    "difficulty": "중간",
+    "age": "8세 이상",
+    "playtime": "15-30분"
+  },
+
+  "Splendor": {
+    "name": "Splendor",
+    "description": "르네상스 시대의 보석 상인이 되어 자원을 모으고 카드를 구매하여 명성 점수를 얻는 카드 게임입니다.",
+    "players": "2-4",
+    "difficulty": "중간",
+    "age": "10세 이상",
+    "playtime": "30분"
   }
 }
