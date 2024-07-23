@@ -5,7 +5,6 @@ import os
 
 def test_llm(text: str) -> str:
     load_dotenv()
-    
     # Azure OpenAI 클라이언트 설정
     client = AzureChatOpenAI(
         openai_api_key = os.getenv("AZURE_OPENAI_API_KEY"),
@@ -22,9 +21,7 @@ def test_llm(text: str) -> str:
     """)
     
     messages = [system_message, human_message]
-    
     response = client.invoke(messages)
-    
     return response.content
   
 
