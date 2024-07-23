@@ -18,8 +18,9 @@ def subpage():
     difficulty = request.args.get('difficulty')
     age = request.args.get('age')
     playtime = request.args.get('playtime')
+    image = request.args.get('image')
     print(name, description , players, difficulty, age , playtime)
-    return render_template("rule_chat.html" , name=name, description=description , players=players , difficulty=difficulty, age=age , playtime=playtime )
+    return render_template("rule_chat.html" , name=name, description=description , players=players , difficulty=difficulty, age=age , playtime=playtime , image = image)
 
 # @chatboard.route('/rule-chat')
 # def rule_chat():
@@ -52,10 +53,7 @@ def chat():
         message = request.args.get('message')
         if not message:
             return jsonify({'error': 'No message provided'}), 400
-
-        # 메시지 처리 로직 추가
-        response = "서버 응답: " + message
-        return test_llm(response), 200
+        return test_llm(message), 200
     except Exception as e:
         chatboard.logger.error(f"Unhandled exception: {e}")
         return jsonify({'error': str(e)}), 500
