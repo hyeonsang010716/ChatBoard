@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
-from indexing import get_faiss_index
+from .indexing import get_faiss_index
 
 # Load environment variables
 load_dotenv()
@@ -48,16 +48,25 @@ def init_chain(faiss_index):
 
     return qa_chain
 
-def main():
+def reply(text: str, target_file_name: str) -> str:
     current_directory = os.getcwd()
     search_folder = os.path.join(current_directory, 'data')
-    target_file_name = "Bang.pdf"
+    file_path = os.path.join(search_folder, target_file_name)
 
     # Initialize FAISS index
-    faiss_index = get_faiss_index(os.path.join(search_folder, target_file_name))
+    faiss_index = get_faiss_index(file_path)
     
     # Initialize QA chain
     qa_chain = init_chain(faiss_index)
+
+    # Get answer from QA chain
+    result = qa_chain.invoke({"query": text})
+    
+    # Return the answer
+    return result["result"]
+
+def main():
+    target_file_name = "Bang.pdf"
 
     print("Welcome! Ask me anything about the content of the document.")
     print("Type 'exit' to end the conversation.")
@@ -71,11 +80,11 @@ def main():
             print("Thank you for using the QA system. Goodbye!")
             break
 
-        # Get answer from QA chain
-        result = qa_chain.invoke({"query": user_input})
+        # Get answer using reply function
+        answer = reply(user_input, target_file_name)
         
         # Print the answer
-        print("\nAnswer:", result["result"])
+        print("\nAnswer:", answer)
 
 if __name__ == "__main__":
     main()
