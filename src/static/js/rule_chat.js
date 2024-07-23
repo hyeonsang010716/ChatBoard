@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messages = document.getElementById('messages');
     const fileAttach = document.getElementById('fileAttach');
     const messagesContainer = document.getElementById('messages');
+    let messageText = messageInput.value.trim();
 
     // 자동 스크롤을 위한 함수
     function scrollToBottom() {
@@ -26,11 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesContainer.innerHTML += htmlString;
         scrollToBottom();
     }
-    
 
-    function sendQuestionQuery() {
+    function sendQuestionQuery(query) {
         const data = {
-            message : messageInput.value.trim()
+            message : query
         }
         const queryString = new URLSearchParams(data).toString();        
         fetch('/chatboard/chatting?' + queryString) 
@@ -41,13 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text(); 
             })
             .then(data => {
-                messageInput.value = '';
                 console.log(data)
                 removeLoading();
                 makeResponseChat(data);
-                // 입력 필드 활성화
-                messageInput.readOnly = false;
-                scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
+                
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -59,20 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 messages.appendChild(errorMessage);
                 removeLoading();
                 makeResponseChat("오류가 발생했습니다. 다시 입력해주세요");
-
+            })
+            .finally(() => {
                 // 입력 필드 활성화
                 messageInput.readOnly = false;
                 scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
-            })
-            .finally(() => {
-                // 입력 필드 비우기
-                
             });
     }
 
     function sendMessage() {
-        const messageText = messageInput.value.trim();
-        messageInput.readOnly = false;
+        messageText = messageInput.value.trim();
+        messageInput.value = '';
         if (messageText === '') {
             return; // 입력이 비어있으면 아무 작업도 하지 않음
         }
@@ -90,12 +84,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 여기서 쿼리 보내기
         makeLoading();
-        sendQuestionQuery();
+        sendQuestionQuery(messageText);
 
     };
 
-    fileAttach.addEventListener('click', () => {
+    function sendImageMessage(file) {
+        messageInput.readOnly = true;
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user';
+        // 파일 객체를 URL로 변환
+        const fileURL = URL.createObjectURL(file);
+        userMessage.innerHTML = `<div class="message-content"><img src="${fileURL}" alt="Image" style="max-width: 100%; height: auto;"></div>`;
+        messages.appendChild(userMessage);
+        makeLoading();
+        sendQuestionQuery(); //이거를 바꾸긴해야 하는데
+    }
 
+    fileAttach.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            sendImageMessage(file)
+        }
     });
 
     // 전송 버튼 클릭 시 메시지 전송
