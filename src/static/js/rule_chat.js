@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text();
             })
             .then(data => {
+                messageInput.value = '';
                 console.log(data)
                 removeLoading();
                 makeResponseChat(data);
@@ -55,13 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 removeLoading();
                 makeResponseChat("오류가 발생했습니다. 다시 입력해주세요");
 
-
                 // 입력 필드 활성화
                 messageInput.readOnly = false;
                 scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
             })
             .finally(() => {
-                // 로딩 메시지 제거
+                // 입력 필드 비우기
                 
             });
     }
@@ -80,9 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 메시지를 messages 영역에 추가
         messages.appendChild(userMessage);
-
-        // 입력 필드 비우기
-        messageInput.value = '';
 
         // 메시지 영역 스크롤을 맨 아래로 이동
         scrollToBottom();

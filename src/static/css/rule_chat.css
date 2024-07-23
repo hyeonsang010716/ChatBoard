@@ -30,15 +30,10 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-}
-
-#inner {
-    flex: 1; /* Fill available space */
     padding: 10px;
-    display: flex;
-    flex-direction: column;
     position: relative; /* Allow positioning of child elements */
 }
+
 
 .messages {
     flex: 1;
@@ -152,12 +147,12 @@ h2 {
 
 .description {
     display: flex;
-    background-color: gray;
+    background-color: rgba(113, 45, 108, 0.17);
     flex-direction: column;
     align-items: flex-start;
     padding: 16px;
     gap: 10px;
-    width: 218px;
-    height: 56px;
+    width: auto;
+    height: auto;
     border-radius: 8px;
 }
