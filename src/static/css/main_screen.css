@@ -49,31 +49,83 @@ body {
 
 #contents {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 20px;
     margin-top: 20px;
 }
 
 .boardgame-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
+    height: 100%; /* Ensure all cards have the same height */
+    box-sizing: border-box; /* Ensure padding is included in the height */
 }
 
 .boardgame-card img {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    flex-grow: 1; /* Allow the image to grow and take up available space */
 }
 
 .boardgame-card .title {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bolder;
     margin-top: 10px;
+    margin-bottom: 0; /* Remove bottom margin to avoid extra space */
 }
 
-.boardgame-card .updated {
-    font-size: 14px;
+.boardgame-card .detail {
+    font-size: 15px;
     color: #666;
+    margin-top: 0; /* Remove top margin to avoid extra space */
+}
+
+
+#scroll-to-top {
+    display: block;
+    position: fixed;
+    font-size: 21px;
+    @media (max-width: 600px) {
+        font-size: 20px;
+    }
+    bottom: 25px;
+    right: 10%;
+    
+    @media (max-width: 600px) {
+        right: 5%;
+        bottom: 15px;
+    }
+    
+    opacity: 0;
+    z-index: 99;
+    text-align: center;
+    
+    :last-child {
+      transition: transform 0.7s ease-in-out;
+      
+    /* //   &:active, &:hover {
+    //      transform: translateY(-10%);
+    //   } */
+    }
+    transform: translateY(30%);
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+
+#scroll-to-top span {
+    cursor: pointer;
+    color: #1a1d243f;
+
+    &:hover, &:active {
+        .circle {
+            color: #1a1d24;
+        }
+    }
 }
