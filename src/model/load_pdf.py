@@ -96,7 +96,8 @@ async def index_reply(faiss_index: FAISS, query: str, k: int) -> List[Document]:
         raise
 
 async def main():
-    file_path = "pythonProject/ChatBoard/data/Bang.pdf"
+    current_directory = os.getcwd()
+    file_path = os.path.join(current_directory, 'data/Bang.pdf')
     query = "What happens if the sheriff kills the deputy?"
 
     try:
