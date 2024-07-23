@@ -22,6 +22,7 @@ body {
 .gameImg {
     width: 200px;
     margin: auto;
+    padding-left: 40px;
 }
 
 .chatbox {
