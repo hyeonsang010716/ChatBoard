@@ -7,12 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 자동 스크롤을 위한 함수
     function scrollToBottom() {
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        messages.scrollTop = messages.scrollHeight;
     }
 
     function makeLoading() {
         const htmlString = '<div id="loading" class="message partner"><h2>답변을 생성 중입니다</h2><div class="circle"></div><div class="circle"></div><div class="circle"></div></div>';
         messagesContainer.innerHTML += htmlString;
+        scrollToBottom();
     }
 
     function removeLoading() {
@@ -20,17 +21,49 @@ document.addEventListener('DOMContentLoaded', () => {
         loading.remove()
     }
 
+    function makeResponseChat(response) {
+        const htmlString = '<div class="message partner"><img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON"><div class="message-content">' + response + '</div></div>';
+        messagesContainer.innerHTML += htmlString;
+        scrollToBottom();
+    }
+    
+
     function sendQuestionQuery() {
-        // 쿼리는 string으로 전달하고 string 으로 결과값을 받아온다.
-        fetch('http://127.0.0.1:5000/get-data')
-            .then(response => response.json())
+        fetch('/chatboard/chatting') 
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.text();
+            })
             .then(data => {
-                document.getElementById('result').innerText = JSON.stringify(data);
+                console.log(data)
+                removeLoading();
+                makeResponseChat(data);
+                // 입력 필드 활성화
+                messageInput.readOnly = false;
+                scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
+                
+                // 에러 메시지 처리
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'message partner';
+                errorMessage.innerHTML = `<div class="message-content">Error: ${error.message}</div>`;
+                messages.appendChild(errorMessage);
+                removeLoading();
+                makeResponseChat("오류가 발생했습니다. 다시 입력해주세요");
+
+
+                // 입력 필드 활성화
+                messageInput.readOnly = false;
+                scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
+            })
+            .finally(() => {
+                // 로딩 메시지 제거
+                
             });
-           
     }
 
     function sendMessage() {
@@ -52,46 +85,16 @@ document.addEventListener('DOMContentLoaded', () => {
         messageInput.value = '';
 
         // 메시지 영역 스크롤을 맨 아래로 이동
-        messages.scrollTop = messages.scrollHeight;
+        scrollToBottom();
 
         // 여기서 쿼리 보내기
         makeLoading();
         sendQuestionQuery();
-        //
 
     };
 
     fileAttach.addEventListener('click', () => {
-        const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-    
-        if (!file) {
-            alert('Please select a file!');
-            return;
-        }
-    
-        const formData = new FormData();
-        formData.append('file', file);
-    
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/upload', true);
-    
-        xhr.upload.onprogress = function(event) {
-            if (event.lengthComputable) {
-                const percentComplete = (event.loaded / event.total) * 100;
-                document.getElementById('progress').innerText = `Upload progress: ${percentComplete.toFixed(2)}%`;
-            }
-        };
-    
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                alert('File uploaded successfully!');
-            } else {
-                alert('File upload failed!');
-            }
-        };
-    
-        xhr.send(formData);
+
     });
 
     // 전송 버튼 클릭 시 메시지 전송

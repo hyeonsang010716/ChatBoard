@@ -43,3 +43,7 @@ def game_json():
     print(data)
     print(jsonify(data))
     return jsonify(data)
+@chatboard.route('/chatting' , methods=['GET'])
+def chatting():
+    text = "정말 재밌겠군요"
+    return text
