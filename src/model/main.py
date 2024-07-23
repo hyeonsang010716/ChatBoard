@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.memory import ConversationBufferMemory
 from langchain_core.chat_history import InMemoryChatMessageHistory
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
@@ -69,9 +68,9 @@ async def main():
 
     # 대화 내용을 저장할 메모리 초기화
     memory = ConversationBufferMemory(
-            chat_memory=InMemoryChatMessageHistory(),        
-            return_messages=True
-        )
+        chat_memory=InMemoryChatMessageHistory(),        
+        return_messages=True
+    )
 
     try:
         faiss_index = get_faiss_index(os.path.join(search_folder, target_file_name))
@@ -90,6 +89,7 @@ async def main():
 
     except Exception as e:
         logger.error(f"오류 발생: {str(e)}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

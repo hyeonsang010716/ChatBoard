@@ -7,6 +7,8 @@ from langchain_openai import AzureChatOpenAI
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever
+from langchain.chains import LLMChain
+from langchain_core.messages import HumanMessage, AIMessage
 
 # 로깅 설정
 logging.basicConfig(level=logging.INFO)
@@ -18,9 +20,6 @@ CONFIG = {
 }
 
 async def contextualize_query(query: str, memory) -> str:
-    """
-    주어진 쿼리를 대화 기록에 기반하여 비동기적으로 컨텍스트화합니다.
-    """
     try:
         azure_model = AzureChatOpenAI(
             azure_deployment=CONFIG["azure_deployment"],
@@ -38,19 +37,31 @@ async def contextualize_query(query: str, memory) -> str:
         contextualize_q_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", contextualize_q_system_prompt),
-                MessagesPlaceholder("chat_history"),
-                ("human", "{input}"),
+                MessagesPlaceholder(variable_name="chat_history"),
+                ("human", "{input}")
             ]
         )
 
-        history_aware_retriever = create_history_aware_retriever(
-            azure_model, memory, contextualize_q_prompt
-        )
+        # 메모리에서 채팅 기록 추출 및 형식화
+        chat_history = memory.chat_memory.messages
+        formatted_history = []
+        for message in chat_history:
+            if isinstance(message, HumanMessage):
+                formatted_history.append(("human", message.content))
+            elif isinstance(message, AIMessage):
+                formatted_history.append(("ai", message.content))
 
-        return await asyncio.to_thread(history_aware_retriever, {"input": query})
+        # create_history_aware_retriever 대신 LLMChain 생성
+        chain = LLMChain(llm=azure_model, prompt=contextualize_q_prompt)
+
+        # 체인 실행
+        result = await chain.arun(chat_history=formatted_history, input=query)
+        return result.strip()
+
     except Exception as e:
         logger.error(f"쿼리 컨텍스트화 중 오류 발생: {str(e)}")
         raise
+
 
 async def index_reply(faiss_index: FAISS, query: str, k: int, memory) -> List[Document]:
     """
@@ -59,7 +70,7 @@ async def index_reply(faiss_index: FAISS, query: str, k: int, memory) -> List[Do
     try:
         contextualized_query = await contextualize_query(query, memory)
         logger.info(f"컨텍스트화된 쿼리: {contextualized_query}")
-        return await asyncio.to_thread(faiss_index.similarity_search, contextualized_query, k=k)
+        return faiss_index.similarity_search(contextualized_query, k=k)
     except Exception as e:
         logger.error(f"유사성 검색 중 오류 발생: {str(e)}")
         raise
