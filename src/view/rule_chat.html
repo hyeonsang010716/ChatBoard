@@ -12,31 +12,33 @@
             <img src="https://i.ibb.co/DWRWkFh/logo.png " alt="ChatBoard" onclick="window.location.href='/chatboard/main-page'" style="cursor:pointer;" class="logo">
             <img src="https://i.ibb.co/DWC44cc/test.jpg" alt="img" class="gameImg">
             <div class="description">
-                게임 이름
-                
+                게임 이름          
             </div>
-        </div>
-        <div class="chatbox">
-            <div class="container">
-                <div class="chatbox" id="inner">
-                    <div class="messages" id="messages">
-                        <!-- 대화 내용이 여기에 추가됩니다 -->
-                        <div class="message user">
-                            <div class="message-content">안녕하세요!</div>
-                        </div>
-                        <div class="message partner">
-                            <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
-                            <div class="message-content">안녕하세요! 어떻게 도와드릴까요?</div>
-                        </div>
-                        <!-- 더 많은 메시지를 추가할 수 있습니다 -->
-                    </div>
-                    <!-- input-container를 messages 하단에 위치시킵니다 -->
-                    <div class="input-container">
-                        <button id="fileAttach">파일</button>
-                        <input type="text" id="messageInput" placeholder="메시지를 입력하세요..." />
-                        <button id="sendButton">전송</button>
-                    </div>
+        </div>  
+        <div class="chatbox" id="inner">
+            <!-- ChatBox의 상단은 메세지 부분-->
+            <div class="messages" id="messages">
+                <!-- 대화 내용이 여기에 추가됩니다 -->
+                <div class="message user">
+                    <div class="message-content">안녕하세요!</div>
                 </div>
+                <div class="message partner">
+                    <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
+                    <div class="message-content">안녕하세요! 어떻게 도와드릴까요?</div>
+                </div>
+                <div class="message partner">
+                    <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
+                    <div class="message-content">다음과 같이 질문해보세요!<br>OO게임의 규칙은 뭐야?</div>
+                </div>
+                <!-- 더 많은 메시지를 추가할 수 있습니다 -->
+            </div>
+
+            <!-- input-container를 messages 하단에 위치시킵니다 -->
+            <div class="input-container">
+                <button id="fileAttach">파일</button>
+                <input type="file" id="fileInput" name="file" style="display: none;">
+                <input type="text" id="messageInput" placeholder="메시지를 입력하세요..." />
+                <button id="sendButton">전송</button>
             </div>
             <script src="../static/js/rule_chat.js"></script>
         </div>
