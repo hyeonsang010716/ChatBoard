@@ -5,7 +5,8 @@
     "players": "2-6",
     "difficulty": "쉬움",
     "age": "6세 이상",
-    "playtime": "15분"
+    "playtime": "15분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2022/02/20/1645350272987784_lg_N_210x210_100_5_.jpg"
   },
   "Las Vegas": {
     "name": "Las Vegas",
@@ -13,7 +14,8 @@
     "players": "2-5",
     "difficulty": "쉬움",
     "age": "8세 이상",
-    "playtime": "30-45분"
+    "playtime": "30-45분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2022/06/16/1655381471867279_lg_N_210x210_100_5_.jpg"
   },
   "UNO": {
     "name": "UNO",
@@ -21,7 +23,8 @@
     "players": "2-10",
     "difficulty": "쉬움",
     "age": "7세 이상",
-    "playtime": "30분"
+    "playtime": "30분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2022/03/20/1647729611682344_lg_N_210x210_100_5_.jpg"
   },
   "Blitz": {
     "name": "Blitz",
@@ -29,7 +32,8 @@
     "players": "2-6",
     "difficulty": "쉬움",
     "age": "7세 이상",
-    "playtime": "30분"
+    "playtime": "30분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2023/03/20/1679243048475086_lg_N_210x210_100_5_.jpg"
   },
   "Bang": {
     "name": "Bang!",
@@ -37,7 +41,8 @@
     "players": "4-7",
     "difficulty": "중간",
     "age": "8세 이상",
-    "playtime": "20-40분"
+    "playtime": "20-40분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2022/01/16/1642282007766533_lg_N_210x210_100_5_.png"
   },
   "Monopoly": {
     "name": "Monopoly",
@@ -45,7 +50,8 @@
     "players": "2-8",
     "difficulty": "중간",
     "age": "8세 이상",
-    "playtime": "60-180분"
+    "playtime": "60-180분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2022/03/02/164621190535504_lg_N_210x210_100_5_.jpg"
   },
   "Blokus": {
     "name": "Blokus",
@@ -53,7 +59,8 @@
     "players": "2-4",
     "difficulty": "중간",
     "age": "7세 이상",
-    "playtime": "20-30분"
+    "playtime": "20-30분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2023/11/02/1698863892084063_lg_N_210x210_100_5_.png"
   },
   "Rummikub": {
     "name": "Rummikub",
@@ -61,7 +68,8 @@
     "players": "2-4",
     "difficulty": "중간",
     "age": "8세 이상",
-    "playtime": "45-60분"
+    "playtime": "45-60분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2023/12/20/1703077427568215_lg_N_210x210_100_5_.png"
   },
   "Quoridor": {
     "name": "Quoridor",
@@ -69,15 +77,16 @@
     "players": "2-4",
     "difficulty": "중간",
     "age": "8세 이상",
-    "playtime": "15-30분"
+    "playtime": "15-30분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2022/02/02/1643793869343941_lg_N_210x210_100_5_.jpg"
   },
-
   "Splendor": {
     "name": "Splendor",
     "description": "르네상스 시대의 보석 상인이 되어 자원을 모으고 카드를 구매하여 명성 점수를 얻는 카드 게임입니다.",
     "players": "2-4",
     "difficulty": "중간",
     "age": "10세 이상",
-    "playtime": "30분"
+    "playtime": "30분",
+    "image": "https://boardlife.co.kr/wys2/swf_upload/2023/11/19/1700324061316293_lg_N_210x210_100_5_.png"
   }
 }
