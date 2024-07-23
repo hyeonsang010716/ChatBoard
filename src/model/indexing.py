@@ -16,7 +16,7 @@ load_dotenv()
 
 CONFIG = {
     "chunk_size": 400,
-    "chunk_overlap": 20,
+    "chunk_overlap": 50,
     "embedding_model": "text-embedding-3-large",
     "separators": ["\n\n", ".", ","],
     "azure_deployment": os.getenv("AZURE_OPENAI_DEPLOYMENT"),

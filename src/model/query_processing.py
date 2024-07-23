@@ -1,14 +1,12 @@
 import os
-from langchain_community.vectorstores import FAISS
 import logging
-import asyncio
-from typing import List, Any
+from typing import List
+from langchain_community.vectorstores import FAISS
 from langchain_openai import AzureChatOpenAI
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.chains import create_history_aware_retriever
-from langchain.chains import LLMChain
 from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.runnables import RunnableMap
 
 # 로깅 설정
 logging.basicConfig(level=logging.INFO)
@@ -42,26 +40,17 @@ async def contextualize_query(query: str, memory) -> str:
             ]
         )
 
-        # 메모리에서 채팅 기록 추출 및 형식화
+        # 메모리에서 채팅 기록 추출
         chat_history = memory.chat_memory.messages
-        formatted_history = []
-        for message in chat_history:
-            if isinstance(message, HumanMessage):
-                formatted_history.append(("human", message.content))
-            elif isinstance(message, AIMessage):
-                formatted_history.append(("ai", message.content))
-
-        # create_history_aware_retriever 대신 LLMChain 생성
-        chain = LLMChain(llm=azure_model, prompt=contextualize_q_prompt)
 
         # 체인 실행
-        result = await chain.arun(chat_history=formatted_history, input=query)
-        return result.strip()
+        chain = contextualize_q_prompt | azure_model
+        result = await chain.ainvoke({"chat_history": chat_history, "input": query})
+        return result.content.strip()
 
     except Exception as e:
         logger.error(f"쿼리 컨텍스트화 중 오류 발생: {str(e)}")
         raise
-
 
 async def index_reply(faiss_index: FAISS, query: str, k: int, memory) -> List[Document]:
     """

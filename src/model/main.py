@@ -84,7 +84,7 @@ async def main():
         qa_chain = init_chain(faiss_index)
         # 체인을 사용하여 질문에 답변
         query = "What happens if the sheriff kills the deputy?"
-        result = qa_chain({"query": query})
+        result = qa_chain.invoke({"query": query})
         print(result["result"])
 
     except Exception as e:
