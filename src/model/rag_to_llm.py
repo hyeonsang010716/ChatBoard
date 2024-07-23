@@ -1,5 +1,6 @@
 from kor_to_eng import kor_to_eng
 from search_rule import search_rule
+from img_model import img_model
 from load_pdf import get_faiss_index, index_reply
 from langchain_openai import AzureChatOpenAI
 import os
