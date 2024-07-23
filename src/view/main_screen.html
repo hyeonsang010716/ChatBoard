@@ -9,21 +9,31 @@
     <div id="container">
         <div id="header">
             <div id="logo">
-                <img src="https://i.ibb.co/DWRWkFh/logo.png" alt="logo">
+                <a href="/ChatBoard/main_page" onclick="location.reload(); return false;">
+                    <img src="https://i.ibb.co/DWRWkFh/logo.png" alt="logo">
+                </a>
             </div>
             <div id="search_area">
                 <form id="search_form">
-                    <input type="text" alt="search_area">
+                    <input type="text" id="search_input" alt="search_area">
                     <button type="submit" class="search_icon">🔍</button>
                 </form>
             </div>
         </div>
         <div id="contents">
-            <button onclick="window.location.href='/chatboard/sub-page'">Change to Rule Chat</button>
-            <div id="response"></div>
+            <!-- <button onclick="window.location.href='/chatboard/sub-page'">Change to Rule Chat</button>
+            <div id="response"></div> -->
         </div>
     </div>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <script src="../static/js/main_screen.js"></script>
 </body>
+<footer>
+    <div id='scroll-to-top'>
+        <span class='fa-stack fa-lg'>
+            <i class='fa fa-circle fa-stack-2x circle'></i>
+            <i class='fa fa-angle-double-up fa-stack-1x fa-inverse up-arrow'></i>
+        </span>
+    </div>
+</footer>
 </html>

@@ -12,18 +12,16 @@ body {
     width: 330px;
     padding: 20px;
     box-sizing: border-box;
-    border-right: 1px solid #ccc;
 }
 
 .logo {
-    padding: 10px;
     width: 244px;
     height: auto;
 }
 
 .gameImg {
-    width: 100%;
-    margin-bottom: 20px;
+    width: 200px;
+    margin: auto;
 }
 
 .chatbox {
@@ -32,16 +30,10 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-}
-
-#inner {
-    flex: 1; /* Fill available space */
     padding: 10px;
-    background-image: url("https://i.ibb.co/GPk9VzS/background.jpg");
-    display: flex;
-    flex-direction: column;
     position: relative; /* Allow positioning of child elements */
 }
+
 
 .messages {
     flex: 1;
@@ -119,3 +111,48 @@ body {
     cursor: pointer;
 }
 
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #000;
+    border-radius: 50%;
+    margin: 5px;
+    animation: bounce 0.5s ease-in infinite alternate;
+}
+
+.circle:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.circle:nth-last-child(3) {
+    animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(-30px);
+    }
+    to {
+        transform: translateY(-20px);
+    }
+}
+
+#loading {
+    margin-left: 50px;
+}
+
+h2 {
+    margin-right: 20px;
+}
+
+.description {
+    display: flex;
+    background-color: rgba(113, 45, 108, 0.17);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 10px;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+}

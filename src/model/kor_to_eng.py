@@ -1,6 +1,9 @@
+from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 import os
+
+load_dotenv()
 
 def kor_to_eng(question : str) -> str:
     # Azure OpenAI 클라이언트 설정
