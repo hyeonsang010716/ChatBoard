@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (searchForm.style.display === 'none') {
             searchForm.style.display = 'flex';
             element.style.display = 'none';
-            toggleButton.innerText = ' ⏬️ 유형으로 검색하기 '
+            toggleButton.innerText = ' ▼ 유형으로 검색하기 '
         } else {
             searchForm.style.display = 'none';
             element.style.display = 'flex';
-            toggleButton.innerText = ' ⏫️ 이름으로 검색하기 '
+            toggleButton.innerText = ' ▲ 이름으로 검색하기 '
         }
     });
 
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayBoardGames(filteredGames);
     });
 
-/* 검색 버튼을 누르면 해당 기준에 맞는 보드게임 등을 뽑아내고, 화면에 보여주는 함수 */
+    /* 검색 버튼을 누르면 해당 기준에 맞는 보드게임 등을 뽑아내고, 화면에 보여주는 부분 */
     document.getElementById('elementSearch').addEventListener('click', () => {
         const selectedCriteria = {
             players: getSelectedButtonText(document.getElementById('players')),
@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return activeButton ? activeButton.textContent : null;
     }
 
+    // 해당 기준에 맞는 보드게임들을 반환하는 함수
     function searchGames(criteria) {
         return allBoardGames.filter(game => {
             const [minPlayers, maxPlayers] = game.players.split('-').map(Number);
@@ -144,8 +145,14 @@ document.querySelectorAll('.category').forEach(category => {
     category.addEventListener('click', (event) => {
         if (event.target.tagName === 'BUTTON') {
             const buttons = category.querySelectorAll('button');
-            buttons.forEach(button => button.classList.remove('active'));
-            event.target.classList.add('active');
+            const targetButton = event.target;
+
+            if (targetButton.classList.contains('active')) {
+                targetButton.classList.remove('active')
+            } else {
+                buttons.forEach(button => button.classList.remove('active'));
+                event.target.classList.add('active');
+            }
         }
     });
 });
