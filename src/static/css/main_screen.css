@@ -47,6 +47,52 @@ body {
     background: none;
 }
 
+#element {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.category {
+    display: flex;
+    align-items: center;
+}
+
+.category h3 {
+    margin: 0;
+    margin-right: 20px;
+    white-space: nowrap;
+}
+
+.category div {
+    display: flex;
+    gap: 10px;
+}
+
+#element button {
+    cursor: pointer;
+    display: plex;
+    background-color: white;
+    border-radius: 3px;
+    margin-left: 10px;
+    border: 0.5px solid black;
+    text-align: center;
+    padding: 5px 20px;
+}
+
+#element button.active {
+    background-color: #C5FFF2;
+}
+
+#element #elementSearch {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
 #contents {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

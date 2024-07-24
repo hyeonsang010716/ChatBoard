@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadBoardGames() {
         try {
             console.log('Fetching board games...');
-            const gameListResponse = await fetchGameJson(); // 해당 부분의 링크는 이 파일에서 요청을 받아, 모든 보드게임 정보가 담긴 json을 반환해야 합니다.
+            const gameListResponse = await fetchGameJson(); // 해당 부분은 이 파일에서 요청을 받아, 모든 보드게임 정보가 담긴 json을 반환해야 합니다.
             console.log('Fetch Complete!')
             const data = await gameListResponse.json();
             console.log('Board games data:', data);
@@ -35,22 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
             gameCard.innerHTML = `
                 <img src="${game.image}" alt="${game.name}">
                 <div class="title">${game.name}</div>
-                <div class="detail">${game.players}인 | ${game.difficulty} | ${game.playtime}</div>
+                <div class="detail">${game.players}인 | ${game.difficulty} | ${game.playtime} | ${game.theme} </div>
             `;
+            /* 해당 부분은, 각 보드게임마다 클릭하면 클릭한 보드게임을 전달하고 rule_chat 화면으로 전달하는 기능이 구현됨 */
             gameCard.addEventListener('click', () => {
                 try {
-                    // 해당 링크는 화면에서 보드게임을 선택하면 게임의 이름을 POST로 전달하고, 요청이 수락되면 룰 상세 설명 링크를 여는 기능을 해야 합니다.
-                    // const pageResponse = fetch('/select_game', {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         'Content-Type': 'application/json'
-                    //     },
-                    //     body: JSON.stringify({ name: game.name })
-                    // });
-                    // if (!pageResponse.ok) {
-                    //     throw new Error('Network response was not ok ' + pageResponse.statusText);
-                    // }
-                    // const data = pageResponse.json();
                     console.log('Game selected:', game.name);
                     // 성공적으로 전송 후, 특정 페이지로 이동
                     postGameJson(game);
@@ -65,17 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 페이지가 로드될 때 보드게임 정보를 가져옴
     loadBoardGames();
 
-    // 로고 버튼을 클릭할 때 보드게임 정보를 다시 가져옴
-    // if (logoButton) {
-    //     logoButton.addEventListener('click', (event) => {
-    //         event.preventDefault();
-    //         console.log('Logo button clicked, loading board games...');
-    //         loadBoardGames();
-    //     });
-    // } else {
-    //     console.log('Logo button not found');
-    // }
-
     // 검색 폼 제출 처리
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
@@ -87,37 +65,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const filteredGames = allBoardGames.filter(game => game.name.toLowerCase().includes(searchText));
         console.log('Filtered Games:', filteredGames);
         displayBoardGames(filteredGames);
-
-        // try {
-        //     const response = await fetchGameJson();
-        //     console.log("response : ",response);
-        //     if (!response) {
-        //         throw new Error('Network response was not ok ' + response.statusText);
-        //     }
-        //     const data = await response.json();
-        //     console.log('Search Response:', data);
-        //     displayBoardGames(data.games);
-        // } catch (error) {
-        //     console.error('There was a problem with the fetch operation:', error);
-        // }
     });
+
+/* 검색 버튼을 누르면 해당 기준에 맞는 보드게임 등을 뽑아내고, 화면에 보여주는 함수 */
+    document.getElementById('elementSearch').addEventListener('click', () => {
+        const selectedCriteria = {
+            players: getSelectedButtonText(document.getElementById('players')),
+            theme: getSelectedButtonText(document.getElementById('theme')),
+            difficulty: getSelectedButtonText(document.getElementById('difficulty'))
+        };
+
+        const results = searchGames(selectedCriteria);
+        console.log(results);
+        displayBoardGames(results);
+    });
+
+    function getSelectedButtonText(category) {
+        const activeButton = category.querySelector('button.active');
+        return activeButton ? activeButton.textContent : null;
+    }
+
+    function searchGames(criteria) {
+        return allBoardGames.filter(game => {
+            const [minPlayers, maxPlayers] = game.players.split('-').map(Number);
+            const playerCount = criteria.players ? Number(criteria.players.replace('인', '')) : null;
+
+            const matchesPlayers = !criteria.players || (playerCount >= minPlayers && playerCount <= maxPlayers);
+            const matchesTheme = !criteria.theme || game.theme.includes(criteria.theme);
+            const matchesDifficulty = !criteria.difficulty || game.difficulty === criteria.difficulty;
+
+            return matchesPlayers && matchesTheme && matchesDifficulty;
+        });
+    }
 });
-
-
-// window.onload = function() {
-//     fetchGameJson();
-// };
-
-// async function fetchGameJson() {
-//     fetch('/chatboard/game_json')
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log(data);
-//             console.log("complete")
-//             return data;
-//         })
-//         .catch(error => console.error('Error:', error));
-// }
 
 async function fetchGameJson() {
     try {
@@ -137,7 +117,20 @@ function postGameJson(data) {
 function hasScrollBehavior() {
     return 'scrollBehavior' in document.documentElement.style;
 }
-  
+
+/* 선택 기준 누르면 활성화되고, 다른 기준은 비활성화되는 기능을 하는 함수*/
+document.querySelectorAll('.category').forEach(category => {
+    category.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+            const buttons = category.querySelectorAll('button');
+            buttons.forEach(button => button.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    });
+});
+
+
+/* Top 버튼 누르면 맨 위 화면으로 올라가는 기능을 하는 함수 */ 
 function smoothScroll() {
     var currentY = window.scrollY;
     var int = setInterval(function () {

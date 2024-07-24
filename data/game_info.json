@@ -63,6 +63,7 @@
       "difficulty": "어려움",
       "age": "8세 이상",
       "playtime": "60분",
+      "theme": ["전략"],
       "image": "https://boardlife.co.kr/wys2/swf_upload/2022/01/12/164192202871398_lg_N_210x210_100_5_.png"
     },
     {
@@ -73,6 +74,7 @@
       "difficulty": "매우 쉬움",
       "age": "7세 이상",
       "playtime": "30분",
+      "theme": ["순발력"],
       "image": "https://boardlife.co.kr/wys2/swf_upload/2023/03/20/1679243048475086_lg_N_210x210_100_5_.jpg"
     },
     {
@@ -83,6 +85,7 @@
       "difficulty": "어려움",
       "age": "8세 이상",
       "playtime": "20-40분",
+      "theme": ["마피아"],
       "image": "https://boardlife.co.kr/wys2/swf_upload/2022/01/16/1642282007766533_lg_N_210x210_100_5_.png"
     },
     {
@@ -93,6 +96,7 @@
       "difficulty": "보통",
       "age": "8세 이상",
       "playtime": "60-180분",
+      "theme": ["경영"],
       "image": "https://boardlife.co.kr/wys2/swf_upload/2022/03/02/164621190535504_lg_N_210x210_100_5_.jpg"
     },
     {
@@ -103,6 +107,7 @@
       "difficulty": "쉬움",
       "age": "7세 이상",
       "playtime": "20-30분",
+      "theme": "전략",
       "image": "https://boardlife.co.kr/wys2/swf_upload/2023/11/02/1698863892084063_lg_N_210x210_100_5_.png"
     },
     {
@@ -113,6 +118,7 @@
       "difficulty": "보통",
       "age": "8세 이상",
       "playtime": "45-60분",
+      "theme": ["전략"],
       "image": "https://boardlife.co.kr/wys2/swf_upload/2023/12/20/1703077427568215_lg_N_210x210_100_5_.png"
     },
     {
@@ -123,6 +129,7 @@
       "difficulty": "쉬움",
       "age": "8세 이상",
       "playtime": "15-30분",
+      "theme": "전략",
       "image": "https://boardlife.co.kr/wys2/swf_upload/2022/02/02/1643793869343941_lg_N_210x210_100_5_.jpg"
     },
     {
@@ -133,6 +140,7 @@
       "difficulty": "어려움",
       "age": "10세 이상",
       "playtime": "30분",
+      "theme": "전략",
       "image": "https://boardlife.co.kr/wys2/swf_upload/2023/11/19/1700324061316293_lg_N_210x210_100_5_.png"
     },
     {
@@ -143,6 +151,7 @@
       "difficulty": "쉬움",
       "age": "8세 이상",
       "playtime": "30분",
+      "theme": "전략",
       "image": "https://boardlife.co.kr/data/boardgame_strategy/2021/02/08/1612776466-283088_N_210x210_100_5_.jpg"
     }
   ]
