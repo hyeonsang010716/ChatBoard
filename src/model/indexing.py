@@ -31,6 +31,7 @@ def get_faiss_index(file_path: str) -> FAISS:
     """
     try:
         logger.info(f"파일 인덱싱 중: {file_path}")
+        print(file_path)
         loader = PyPDFLoader(file_path)
         pages = loader.load_and_split()
 
