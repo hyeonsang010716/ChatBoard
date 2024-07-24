@@ -49,22 +49,23 @@ body {
 
 #element {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     gap: 20px;
 }
 
-.category {
+.categories {
+    flex-direction: column;
     display: flex;
-    align-items: center;
+    gap: 20px;
 }
 
-.category h3 {
+.categories h3 {
     margin: 0;
     margin-right: 20px;
     white-space: nowrap;
 }
 
-.category div {
+.categories div {
     display: flex;
     gap: 10px;
 }
@@ -85,12 +86,25 @@ body {
 }
 
 #element #elementSearch {
-    margin: 20px;
-    padding: 10px 20px;
-    background-color: #29ffd1;
-    color: black;
-    border: none;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 50px;
+}
+
+#toggleSearch {
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    color: black;
+    margin-top: 15px;
+    padding: 10px;
+    align-items: center;
+    font-size: 25px;
+    border: 0.5px solid #000 50%;
+    border-radius: 5px;
 }
 
 #contents {
