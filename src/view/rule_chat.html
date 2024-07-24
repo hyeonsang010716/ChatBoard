@@ -1,58 +1,66 @@
-    <!DOCTYPE html>
-    <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>대화창 레이아웃</title>
-        <link rel="stylesheet" href="../static/css/rule_chat.css">
-        <script src="../static/js/rule_chat.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <img src="https://i.ibb.co/DWRWkFh/logo.png " alt="ChatBoard" onclick="window.location.href='/chatboard/main-page'" style="cursor:pointer;" class="logo">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대화창 레이아웃</title>
+    <link rel="stylesheet" href="../static/css/rule_chat.css">
+    <script src="../static/js/rule_chat.js"></script>
+    <script src="../static/js/rule_chat_anim.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <img src="https://i.ibb.co/DWRWkFh/logo.png " alt="ChatBoard" onclick="window.location.href='/chatboard/main-page'" style="cursor:pointer;" class="logo">
+            <div class="round-frame">
                 <img src="{{ image | safe }}" alt="img" class="gameImg">
                 <div class="description">
-                    {{name}}
-                    <br><br>
+                    <h3>{{name}}</h3>
                     플레이어 인원 수: {{players}}
-                    <br><br>
+                    <br>
                     연령: {{age}}
-                    <br><br>
+                    <br>
                     난이도: {{difficulty}}
-                    <br><br>
+                    <br>
                     게임 진행 시간: {{playtime}}
-                    <br><br>
-                    게임 설명: {{description}}          
+                    <br>
+                    <button id="openDetail">게임 설명 보기</button>       
                 </div>
-            </div>  
-            <div class="chatbox">
-                <!-- ChatBox의 상단은 메세지 부분-->
-                <div class="messages" id="messages">
-                    <!-- 대화 내용이 여기에 추가됩니다 -->
-                    <div class="message partner">
-                        <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
-                        <div class="message-content">안녕하세요! 어떻게 도와드릴까요?</div>
+                <div id="detail" class="detail">
+                    <div class="detail-content">
+                        <span id="closeDetail" class="close">&times;</span>
+                        <h2>게임 설명</h2>
+                        <p>{{description}}</p>
                     </div>
-                    <div class="message partner">
-                        <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
-                        <div class="message-content">다음과 같이 질문해보세요!<br>{{name}} 게임의 규칙은 뭐야?</div>
-                    </div>
-                    <!-- 더 많은 메시지를 추가할 수 있습니다 -->
-                </div>
-
-                <!-- 투명블럭으로 아래 공간 띄우기-->
-                <div style="background-color: rgba(0,0,0,0); height: 50px;"></div>
-
-                <!-- input-container를 messages 하단에 위치시킵니다 -->
-                <div class="input-container">
-                    <button id="fileAttach">파일</button>
-                    <input type="file" id="fileInput" name="file" style="display: none;">
-                    <input type="text" id="messageInput" placeholder="메시지를 입력하세요..." />
-                    <button id="sendButton">전송</button>
                 </div>
             </div>
+            
+        </div>  
+        <div class="chatbox">
+            <!-- ChatBox의 상단은 메세지 부분-->
+            <div class="messages" id="messages">
+                <!-- 대화 내용이 여기에 추가됩니다 -->
+                <div class="message partner">
+                    <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
+                    <div class="message-content">안녕하세요! 어떻게 도와드릴까요?</div>
+                </div>
+                <div class="message partner">
+                    <img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON">
+                    <div class="message-content">다음과 같이 질문해보세요!<br>{{name}} 게임의 규칙은 뭐야?</div>
+                </div>
+                <!-- 더 많은 메시지를 추가할 수 있습니다 -->
+            </div>
+            <!-- 투명블럭으로 아래 공간 띄우기-->
+            <div style="background-color: rgba(0,0,0,0); height: 50px;"></div>
+            <!-- input-container를 messages 하단에 위치시킵니다 -->
+            <div class="input-container">
+                <button id="fileAttach">파일</button>
+                <input type="file" id="fileInput" name="file" style="display: none;">
+                <input type="text" id="messageInput" placeholder="해당 게임에 대해 질문 하고 싶은 내용을 입력 해주세요!" />
+                <button id="sendButton">전송</button>
+            </div>
         </div>
-    </body>
-    </html>
+    </div>
+</body>
+</html>
 

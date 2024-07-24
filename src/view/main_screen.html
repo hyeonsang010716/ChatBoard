@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>ChatBoard</title>
     <link rel="stylesheet" href="../static/css/main_screen.css">
+    <link rel="icon" href="https://i.ibb.co/W0wQy5Z/icon.png">
 </head>
 <body>
     <div id="container">
@@ -20,6 +21,36 @@
                 </form>
             </div>
         </div>
+        <!-- 보드게임 검색 기준 선택하게 하기 -->
+        <div id="element">
+            <div class="category" id="players">
+                <h3>인원 수</h3>
+                <button type="button">2인</button>
+                <button type="button">3인</button>
+                <button type="button">4인</button>
+                <button type="button">5인</button>
+                <button type="button">6인 이상</button>
+            </div>
+            <div class="category" id="theme">
+                <h3>테마</h3>
+                <button type="button">전략</button>
+                <button type="button">순발력</button>
+                <button type="button">운</button>
+                <button type="button">경영</button>
+                <button type="button">마피아</button>
+                <button type="button">기억력</button>
+                <button type="button">협동</button>
+            </div>
+            <div class="category" id="difficulty">
+                <h3>난이도</h3>
+                <button type="button">매우 쉬움</button>
+                <button type="button">쉬움</button>
+                <button type="button">보통</button>
+                <button type="button">어려움</button>
+            </div>
+            <button id="elementSearch">검색</button>
+        </div>
+        <button id="toggleSearch"> ⏬️ 유형으로 검색하기</button>
         <div id="contents">
             <!-- <button onclick="window.location.href='/chatboard/sub-page'">Change to Rule Chat</button>
             <div id="response"></div> -->
@@ -27,6 +58,7 @@
     </div>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <script src="../static/js/main_screen.js"></script>
+    <script src="../static/js/scroll_toggle.js"></script>
 </body>
 <footer>
     <div id='scroll-to-top'>
