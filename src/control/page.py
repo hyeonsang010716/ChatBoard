@@ -52,10 +52,26 @@ def game_json():
 def chat():
     try:
         message = request.args.get('message')
+        game_name = request.args.get('name')
         if not message:
             return jsonify({'error': 'No message provided'}), 400
         # return test_llm(message), 200
-        target_file_name = "Bang.pdf"
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        json_file_path = os.path.abspath(os.path.join(current_dir , '..' , '..' , 'data' , 'game_info.json'))
+        if os.path.exists(json_file_path):
+            with open(json_file_path, 'r', encoding='utf-8') as json_file:
+                try:
+                    data = json.load(json_file)
+                except json.JSONDecodeError:
+                    return jsonify({"error": "Error decoding JSON"}), 400
+        
+        eng_game_name = ""
+        for x in data['games']:
+            if x['name'] == game_name:
+                eng_game_name = x['name_eng']
+                break
+        target_file_name = eng_game_name + '.pdf'
+        print("eng_game name :" , target_file_name)
         return reply(message, target_file_name), 200
     except Exception as e:
         chatboard.logger.error(f"Unhandled exception: {e}")

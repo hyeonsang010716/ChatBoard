@@ -29,8 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sendQuestionQuery(query) {
+        const game_text = document.querySelector('.description');
+        const game_description = game_text.textContent || game_text.innerText;
+        game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== '')
+        console.log(game_name[0]);
         const data = {
-            message : query
+            message : query ,
+            name : game_name[0]
         }
         const queryString = new URLSearchParams(data).toString();        
         fetch('/chatboard/chatting?' + queryString) 
