@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoButton = document.getElementById('logoButton');
     const searchForm = document.getElementById('search_form');
     const searchInput = document.getElementById('search_input');
+    const element = document.getElementById('element');
     const contents = document.getElementById('contents');
+    const toggleButton = document.getElementById('toggleSearch');
 
     // 모든 보드게임 정보를 가져와서 화면에 표시하는 함수
     async function loadBoardGames() {
@@ -54,6 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // 페이지가 로드될 때 보드게임 정보를 가져옴
     loadBoardGames();
 
+    // 토글버튼 누를때마다 이름 검색 <-> 유형 검색으로 바뀜
+    toggleButton.addEventListener('click', () => {
+        if (searchForm.style.display === 'none') {
+            searchForm.style.display = 'flex';
+            element.style.display = 'none';
+            toggleButton.innerText = ' ⏬️ 유형으로 검색하기 '
+        } else {
+            searchForm.style.display = 'none';
+            element.style.display = 'flex';
+            toggleButton.innerText = ' ⏫️ 이름으로 검색하기 '
+        }
+    });
+
+    // 초기 상태 설정
+    searchForm.style.display = 'flex';
+    element.style.display = 'none';
+
     // 검색 폼 제출 처리
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
@@ -88,9 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function searchGames(criteria) {
         return allBoardGames.filter(game => {
             const [minPlayers, maxPlayers] = game.players.split('-').map(Number);
-            const playerCount = criteria.players ? Number(criteria.players.replace('인', '')) : null;
+            const playerCount = criteria.players && criteria.players !== "6인 이상" ? Number(criteria.players.replace('인', '')) : null;
 
-            const matchesPlayers = !criteria.players || (playerCount >= minPlayers && playerCount <= maxPlayers);
+            const matchesPlayers = !criteria.players || 
+                      (criteria.players === "6인 이상" && maxPlayers >= 6) || 
+                      (playerCount >= minPlayers && playerCount <= maxPlayers);
             const matchesTheme = !criteria.theme || game.theme.includes(criteria.theme);
             const matchesDifficulty = !criteria.difficulty || game.difficulty === criteria.difficulty;
 
@@ -128,52 +149,3 @@ document.querySelectorAll('.category').forEach(category => {
         }
     });
 });
-
-
-/* Top 버튼 누르면 맨 위 화면으로 올라가는 기능을 하는 함수 */ 
-function smoothScroll() {
-    var currentY = window.scrollY;
-    var int = setInterval(function () {
-        window.scrollTo(0, currentY);
-  
-        if (currentY > 500) {
-            currentY -= 70;
-        } else if (currentY > 100) {
-            currentY -= 50;
-        } else {
-            currentY -= 10;
-        }
-  
-        if (currentY <= 0) clearInterval(int);
-    }, 1000 / 60); // 60fps
-}
-  
-function scrollToTop() {
-    // document.getElementById('page-title').scrollIntoView({behavior: 'smooth'});
-    if (hasScrollBehavior()) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-        smoothScroll();
-    }
-}
-  
-function toggleScrollUpButton() {
-    var y = window.scrollY;
-    var e = document.getElementById('scroll-to-top');
-    if (y >= 350) {
-        e.style.transform = 'translateY(-30%)'
-        e.style.opacity = 1;
-    } else {
-        e.style.opacity = 0;
-        e.style.transform = 'translateY(30%)'
-    }
-}
-  
-document.addEventListener("DOMContentLoaded", function () {
-    document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-  
-    window.addEventListener("scroll", toggleScrollUpButton);
-  
-    var e = document.getElementById('scroll-to-top');
-    e.addEventListener('click', scrollToTop, false);
-    }, false);
