@@ -6,23 +6,27 @@ body {
 .container {
     display: flex;
     height: 100vh;
+    background-image: url("https://i.ibb.co/GPk9VzS/background.jpg");
+    background-size: cover;
 }
 
 .content {
     width: 330px;
     padding: 20px;
     box-sizing: border-box;
+    background-color: rgba(0,0,0,0);
 }
 
 .logo {
     width: 244px;
     height: auto;
+    align-items: center;
 }
 
 .gameImg {
-    width: 200px;
+    width: 100%;
+    height: 300px;
     margin: auto;
-    padding-left: 40px;
 }
 
 .chatbox {
@@ -33,6 +37,7 @@ body {
     box-sizing: border-box;
     padding: 10px;
     position: relative; /* Allow positioning of child elements */
+    background-color: rgba(0,0,0,0);
 }
 
 
@@ -40,7 +45,7 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 10px;
-    background-color: rgba(197, 255, 242, 0.9);
+    background-color: rgba(197, 255, 242, 0.8);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -156,4 +161,82 @@ h2 {
     width: auto;
     height: auto;
     border-radius: 8px;
+}
+
+.round-frame {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(213, 197, 214, 0.4);
+
+}
+
+#openDetail {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 0;
+    font: inherit;
+}
+
+.detail {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.5s;
+}
+
+.detail-content {
+    position: relative;
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    animation: slideIn 0.5s;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideOut {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100px); opacity: 0; }
 }
