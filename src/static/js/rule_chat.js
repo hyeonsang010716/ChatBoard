@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('sendButton');
     const messages = document.getElementById('messages');
     const fileAttach = document.getElementById('fileAttach');
+    const fileInput = document.getElementById('fileInput');
     const messagesContainer = document.getElementById('messages');
     let messageText = messageInput.value.trim();
+    let formData = new FormData();
 
     // 자동 스크롤을 위한 함수
     function scrollToBottom() {
@@ -28,32 +30,53 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollToBottom();
     }
 
-    function sendQuestionQuery(query) {
-        const game_text = document.querySelector('.description');
-        const game_description = game_text.textContent || game_text.innerText;
-        game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== '');
-        console.log(game_name[0]);
-        const data = {
-            message : query ,
-            name : game_name[0]
+    function sendQuestionQueryWithImage() {
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
         }
-        const queryString = new URLSearchParams(data).toString();        
-        fetch('/chatboard/chatting?' + queryString) 
-        .then(response => {
-            if (!response) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.text(); 
+        fetch('/chatboard/img_upload', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            removeLoading();
+            makeResponseChat(data["data"]);
+            console.log('Success:', data);
+          })
+          .catch(error => {
+            removeLoading();
+            console.error('Error:', error);
+          })
+          .finally(() => {
+            // 입력 필드 활성화
+            formData = new FormData();
+            messageInput.readOnly = false;
+            scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
+        });
+    }
+
+    function sendQuestionQuery() {
+        const data = {
+            message: formData.get("message"),
+            name: formData.get("name")
+        };
+        const queryString = new URLSearchParams(data).toString();
+        fetch('/chatboard/chatting?' + queryString)
+            .then(response => {
+                if (!response.ok) { // 수정: response.ok로 확인
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
             })
             .then(data => {
-                console.log(data)
+                console.log(data);
                 removeLoading();
                 makeResponseChat(data);
-                
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                
+
                 // 에러 메시지 처리
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'message partner';
@@ -64,12 +87,28 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .finally(() => {
                 // 입력 필드 활성화
+                formData = new FormData();
                 messageInput.readOnly = false;
                 scrollToBottom(); // 새로운 메시지 추가 후 스크롤 이동
             });
     }
 
+    function sendQueryBranch() {
+        const game_text = document.querySelector('.description');
+        const game_description = game_text.textContent || game_text.innerText;
+        const game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== ''); // 수정: const 추가
+        formData.append("name", game_name[0]);
+
+        
+
+        if (formData.get("file") == null) sendQuestionQuery();
+        else{
+            sendQuestionQueryWithImage();
+        } 
+    } // 수정: 함수 닫는 괄호 추가
+
     function sendMessage() {
+        // 메세지 전송
         messageText = messageInput.value.trim();
         messageInput.value = '';
         if (messageText === '') {
@@ -83,42 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 메시지를 messages 영역에 추가
         messages.appendChild(userMessage);
-
+        formData.append("message", messageText);
         // 메시지 영역 스크롤을 맨 아래로 이동
         scrollToBottom();
 
         // 여기서 쿼리 보내기
         makeLoading();
-        sendQuestionQuery(messageText);
-
-    };
-
-    function sendImageMessage(file) {
-        messageInput.readOnly = true;
-        const userMessage = document.createElement('div');
-        userMessage.className = 'message user';
-        const game_text = document.querySelector('.description');
-        const game_description = game_text.textContent || game_text.innerText;
-        game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== '');
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('name' , game_name[0]);
-        fetch('/chatboard/img_upload', {
-            method: 'POST',
-            body: formData
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('Success:', data);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-        const fileURL = URL.createObjectURL(file);
-        userMessage.innerHTML = `<div class="message-content"><img src="${fileURL}" alt="Image" style="max-width: 100%; height: auto;"></div>`;
-        messages.appendChild(userMessage);
-        makeLoading();
-        sendQuestionQuery(); //이거를 바꾸긴해야 하는데
+        sendQueryBranch();
     }
 
     fileAttach.addEventListener('click', () => {
@@ -126,10 +136,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     fileInput.addEventListener('change', (event) => {
+        // 역할을 사진을 받으면 일단 출력 하는 용도로 사용
         const file = event.target.files[0];
-        if (file) {
-            sendImageMessage(file)
-        }
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user';
+        const fileURL = URL.createObjectURL(file);
+        formData.append('file', file);
+        userMessage.innerHTML = `<div class="message-content"><img src="${fileURL}" alt="Image" style="max-width: 100%; height: auto;"></div>`;
+        messages.appendChild(userMessage);
+        
+        const partnerMessage = document.createElement('div');
+        partnerMessage.className = 'message partner';
+        partnerMessage.innerHTML = `<div class="message partner"><img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON"><div class="message-content">사진에 대한 추가 설명을<br>해주세요</div></div>`;
+        messages.appendChild(partnerMessage);
     });
 
     // 전송 버튼 클릭 시 메시지 전송
@@ -148,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Enter 키를 눌렀을 때 메시지 전송
     messageInput.addEventListener('keydown', (event) => {
-        if(event.isComposing) return; // 한글 2번 입력 버그 해소
+        if (event.isComposing) return; // 한글 2번 입력 버그 해소
         if (event.key === 'Enter') {
             event.preventDefault(); // 기본 Enter 키 동작(줄바꿈) 방지
             sendMessage();
