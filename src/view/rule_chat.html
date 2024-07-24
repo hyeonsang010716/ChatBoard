@@ -6,25 +6,35 @@
         <title>대화창 레이아웃</title>
         <link rel="stylesheet" href="../static/css/rule_chat.css">
         <script src="../static/js/rule_chat.js"></script>
+        <script src="../static/js/rule_chat_anim.js"></script>
     </head>
     <body>
         <div class="container">
             <div class="content">
                 <img src="https://i.ibb.co/DWRWkFh/logo.png " alt="ChatBoard" onclick="window.location.href='/chatboard/main-page'" style="cursor:pointer;" class="logo">
-                <img src="{{ image | safe }}" alt="img" class="gameImg">
-                <div class="description">
-                    {{name}}
-                    <br><br>
-                    플레이어 인원 수: {{players}}
-                    <br><br>
-                    연령: {{age}}
-                    <br><br>
-                    난이도: {{difficulty}}
-                    <br><br>
-                    게임 진행 시간: {{playtime}}
-                    <br><br>
-                    게임 설명: {{description}}          
+                <div class="round-frame">
+                    <img src="{{ image | safe }}" alt="img" class="gameImg">
+                    <div class="description">
+                        <h3>{{name}}</h3>
+                        플레이어 인원 수: {{players}}
+                        <br>
+                        연령: {{age}}
+                        <br>
+                        난이도: {{difficulty}}
+                        <br>
+                        게임 진행 시간: {{playtime}}
+                        <br>
+                        <button id="openDetail">게임 설명 보기</button>       
+                    </div>
+                    <div id="detail" class="detail">
+                        <div class="detail-content">
+                            <span id="closeDetail" class="close">&times;</span>
+                            <h2>게임 설명</h2>
+                            <p>{{description}}</p>
+                        </div>
+                    </div>
                 </div>
+                
             </div>  
             <div class="chatbox">
                 <!-- ChatBox의 상단은 메세지 부분-->
@@ -40,10 +50,8 @@
                     </div>
                     <!-- 더 많은 메시지를 추가할 수 있습니다 -->
                 </div>
-
                 <!-- 투명블럭으로 아래 공간 띄우기-->
                 <div style="background-color: rgba(0,0,0,0); height: 50px;"></div>
-
                 <!-- input-container를 messages 하단에 위치시킵니다 -->
                 <div class="input-container">
                     <button id="fileAttach">파일</button>
