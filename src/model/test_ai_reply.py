@@ -39,6 +39,10 @@ def init_chain(faiss_index, game_name):
 
             Based on the image description, user query, and provided context, please provide a detailed analysis of the game situation. 
             Focus on answering the user's query while considering both the visual information from the image description and the textual information from the game rules.
+            
+            Please provide your response in Korean.
+
+            Keep your response concise and to the point. Include only the most critical information and your conclusion.
 
             Analysis:"""
     )
@@ -63,7 +67,6 @@ async def reply(text: str, target_file_name: str, img_file_path: str) -> str:
     
     chain, retriever = init_chain(faiss_index, game_name)
     
-    # Use retriever invoke method instead of get_relevant_documents
     docs = await retriever.ainvoke(text)
     context = "\n".join([doc.page_content for doc in docs])
     
@@ -77,8 +80,8 @@ async def reply(text: str, target_file_name: str, img_file_path: str) -> str:
     response = await chain.ainvoke(input_data)
     
     # 메타데이터 제거
-    if isinstance(response, dict) and 'text' in response:
-        response_text = response['text']
+    if isinstance(response, AIMessage):
+        response_text = response.content
     else:
         response_text = response
     
