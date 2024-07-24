@@ -49,9 +49,13 @@ def init_chain(faiss_index):
     return qa_chain
 
 def reply(text: str, target_file_name: str) -> str:
-    current_directory = os.getcwd()
-    search_folder = os.path.join(current_directory, 'data')
-    file_path = os.path.join(search_folder, target_file_name)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.abspath(os.path.join(current_dir , '..' , '..'))
+    search_folder = os.path.join(file_path, 'data')
+    
+    # current_directory = os.getcwd()
+    # search_folder = os.path.join(current_directory, 'data')
+    # file_path = os.path.join(search_folder, target_file_name)
 
     # Initialize FAISS index
     faiss_index = get_faiss_index(file_path)
