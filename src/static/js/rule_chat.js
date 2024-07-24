@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function sendQuestionQuery(query) {
         const game_text = document.querySelector('.description');
         const game_description = game_text.textContent || game_text.innerText;
-        game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== '')
+        game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== '');
         console.log(game_name[0]);
         const data = {
             message : query ,
@@ -97,7 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
         messageInput.readOnly = true;
         const userMessage = document.createElement('div');
         userMessage.className = 'message user';
-        // 파일 객체를 URL로 변환
+        const game_text = document.querySelector('.description');
+        const game_description = game_text.textContent || game_text.innerText;
+        game_name = game_description.split('\n').map(line => line.trim()).filter(line => line !== '');
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('name' , game_name[0]);
+        fetch('/chatboard/img_upload', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
         const fileURL = URL.createObjectURL(file);
         userMessage.innerHTML = `<div class="message-content"><img src="${fileURL}" alt="Image" style="max-width: 100%; height: auto;"></div>`;
         messages.appendChild(userMessage);
