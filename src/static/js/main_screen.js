@@ -1,6 +1,17 @@
 let allBoardGames = []
 const domElement = {};
 
+const noGamesMessages = [
+    '저희는 그런 것 받지 않습니다... <br> 그렇지만, 이건 꼭 있었으면 하는 게임은 해당 링크로 문의해주세요!',
+    '원래는 그런 게 있었는데, 잠깐 한눈 판 사이에 도망갔나봐요! <br> 해당 링크로, 찾으시는 보드게임을 보내주시겠어요?',
+    '앗! 지금은 기준에 맞는 보드게임이 없어요! <br> 해당 링크로, 찾으시는 보드게임을 보내주시겠어요?',
+    '이상하네요, 기준에 맞는 보드게임이 감쪽같이 사라졌어요! <br> 원하시는 게임을 링크로 알려주세요!',
+    '해당 기준에 맞는 보드게임을 가져오는 데에 실패했습니다. <br> 원하시는 게임을 링크로 보내주세요.',
+    '저도 아직 그 보드게임 모르는데! <br> 혹시 이 링크로, 저한테도 알려주실 수 있어요?',
+    '보드게임이 없다고요? 걱정 마세요! <br> 이 링크로, 그 보드게임에 대해 보내주세요!',
+    '저도 가끔 실수해요. 없을 때도 있는거죠 뭐, <br> 실망하지 마시고, 이 링크로 그 게임에 대해 보내주세요.'
+];
+
 /* DOM content가 load 되면 불러와지는 부분,
 이 부분이 사실상 main 이라고 생각하면 된다 */
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,10 +62,26 @@ async function fetchGameJson() {
 // 보드게임 카드를 화면에 표시하는 함수
 function displayBoardGames(boardGames) {
     domElement.contents.innerHTML = ''; // 기존 콘텐츠를 제거
-    boardGames.forEach(game => {
-        const gameCard = createGameCard(game);
-        domElement.contents.appendChild(gameCard);
-    });
+    if (boardGames.length === 0) {
+        domElement.contents.style.display = 'flex';
+        const randomIndex = Math.floor(Math.random() * noGamesMessages.length);
+        const randomMessage = noGamesMessages[randomIndex];
+
+        const noGamesMessage = document.createElement('div');
+        noGamesMessage.className = 'noGamesAlert';
+        noGamesMessage.innerHTML = `
+            <img src= "https://i.ibb.co/W0wQy5Z/icon.png">
+            <p> ${randomMessage} <p>
+            <p id='email'>https://forms.gle/QyQZzdySyMpiFdrZ8<p>
+        `;
+        domElement.contents.appendChild(noGamesMessage);
+    } else {
+        boardGames.forEach(game => {
+            domElement.contents.style.display = 'grid';
+            const gameCard = createGameCard(game);
+            domElement.contents.appendChild(gameCard);
+        });
+    }
 }
 
 // 보드게임 카드를 생성하고 세부룰로 연결하는 기능을 구현한 함수
