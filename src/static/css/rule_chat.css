@@ -6,7 +6,7 @@ body {
 .container {
     display: flex;
     height: 100vh;
-    background-image: url("https://i.ibb.co/GPk9VzS/background.jpg");
+    background-image: url("https://i.ibb.co/rczbbXH/background.jpg");
     background-size: cover;
 }
 
@@ -14,13 +14,14 @@ body {
     width: 330px;
     padding: 20px;
     box-sizing: border-box;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .logo {
     width: 244px;
     height: auto;
     align-items: center;
+    padding-left: 15px;
 }
 
 .gameImg {
@@ -32,13 +33,12 @@ body {
 
 .chatbox {
     flex: 1; /* Fill remaining space */
-    background-color: #e0e0e0;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     padding: 10px;
     position: relative; /* Allow positioning of child elements */
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .messages {
@@ -47,7 +47,7 @@ body {
     padding: 10px;
     background-color: rgba(197, 255, 242, 0.8);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .message {
@@ -154,6 +154,7 @@ h2 {
 .description {
     display: flex;
     background-color: rgba(113, 45, 108, 0.17);
+    /* background-color: rgba(255, 255, 255, 0.6); */
     flex-direction: column;
     align-items: flex-start;
     padding: 16px;
