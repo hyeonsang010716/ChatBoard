@@ -79,7 +79,7 @@ def img_model(image_path: str, game_name: str,) -> str:
 
     Information to extract:
     - Current progress
-    - Number of players Number of players (pay special attention to the number of card piles, hands, player pieces, and player actions)
+    - Number of players Number of players -> The current number of players is three.(pay special attention to the number of card piles, hands, player pieces, and player actions)
     - What each player is doing (based on the cards they have played and their positions)
     - Where and how each item is positioned in the current game situation (describe the position of each card, game pieces, the bell if present, and any other objects)
 
