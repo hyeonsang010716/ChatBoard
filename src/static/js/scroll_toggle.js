@@ -36,6 +36,10 @@ function toggleScrollUpButton() {
         e.style.transform = 'translateY(30%)'
     }
 }
+
+function hasScrollBehavior() {
+    return 'scrollBehavior' in document.documentElement.style;
+}
   
 document.addEventListener("DOMContentLoaded", function () {
     document.removeEventListener("DOMContentLoaded", arguments.callee, false);
