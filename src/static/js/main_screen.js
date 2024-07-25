@@ -15,8 +15,6 @@ const noGamesMessages = [
 /* DOM content가 load 되면 불러와지는 부분,
 이 부분이 사실상 main 이라고 생각하면 된다 */
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded event fired');
-
     domElement.searchForm = document.getElementById('search_form');
     domElement.searchInput = document.getElementById('search_input');
     domElement.element = document.getElementById('element');
@@ -34,14 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // 모든 보드게임 정보를 가져와서 화면에 표시하는 함수
 async function loadBoardGames() {
     try {
-        console.log('Fetching board games...');
         const gameListResponse = await fetchGameJson(); // 해당 부분은 이 파일에서 요청을 받아, 모든 보드게임 정보가 담긴 json을 반환해야 함.
-        console.log('Fetch Complete!')
         const data = await gameListResponse.json();
-        console.log('Board games data:', data);
 
         allBoardGames = data.games;
-        console.log(allBoardGames);
         displayBoardGames(data.games);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
@@ -54,7 +48,6 @@ async function fetchGameJson() {
         const response = await fetch('/chatboard/game_json');
         return response;
     } catch (error) {
-        console.error('Error:', error);
         throw error;
     }
 }
@@ -71,8 +64,8 @@ function displayBoardGames(boardGames) {
         noGamesMessage.className = 'noGamesAlert';
         noGamesMessage.innerHTML = `
             <img src= "https://i.ibb.co/W0wQy5Z/icon.png">
-            <p> ${randomMessage} <p>
-            <p id='email'>https://forms.gle/QyQZzdySyMpiFdrZ8<p>
+            <p> ${randomMessage} </p>
+            <a href="https://forms.gle/QyQZzdySyMpiFdrZ8" id="email">문의사항 링크</a>
         `;
         domElement.contents.appendChild(noGamesMessage);
     } else {
@@ -96,8 +89,6 @@ function createGameCard(game) {
     /* 해당 부분은, 각 보드게임마다 클릭하면 클릭한 보드게임을 전달하고 rule_chat 화면으로 전달하는 기능이 구현됨 */
     gameCard.addEventListener('click', () => {
         try {
-            // console.log('Game selected:', game.name);
-            // 성공적으로 전송 후, 특정 페이지로 이동
             postGameJson(game.name);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
@@ -139,18 +130,15 @@ function toggleSearch() {
 // 이름으로 검색하는 폼 제출 처리하는 함수
 function nameSearchSubmit(event) {
     event.preventDefault();
-    console.log('Submit event fired');
 
     // 입력된 검색어에서 모든 공백 제거
     const searchText = domElement.searchInput.value.toLowerCase().trim().replace(/\s+/g, '');
-    console.log('Search Text:', searchText);
 
     const filteredGames = allBoardGames.filter(game => {
         // 보드게임 이름에서도 모든 공백 제거
         const gameName = game.name.toLowerCase().trim().replace(/\s+/g, '');
         return gameName.includes(searchText);
     });
-    console.log('Filtered Games:', filteredGames);
     displayBoardGames(filteredGames);
 }
 
@@ -179,7 +167,6 @@ function elementSearchSubmit() {
     };
 
     const results = searchGames(selectedCriteria);
-    console.log(results);
     displayBoardGames(results);
 }
 
