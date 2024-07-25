@@ -148,13 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
         userMessage.className = 'message user';
         const fileURL = URL.createObjectURL(file);
         formData.append('file', file);
-        userMessage.innerHTML = `<div class="message-content"><img src="${fileURL}" alt="Image" style="max-width: 100%; height: auto;"></div>`;
+        userMessage.innerHTML = `<div class="message-content"><img src="${fileURL}" alt="Image" style="max-width: 400px; height: auto;"></div>`;
         messages.appendChild(userMessage);
         
         const partnerMessage = document.createElement('div');
         partnerMessage.className = 'message partner';
-        partnerMessage.innerHTML = `<div class="message partner"><img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON"><div class="message-content">사진에 대한 추가 설명을<br>해주세요</div></div>`;
+        partnerMessage.innerHTML = `<img src="https://i.ibb.co/W0wQy5Z/icon.png" alt="ICON"><div class="message-content">현재 어떤 상황인가요? 사진에 대한 자세한 설명을 해주세요!</div>`;
         messages.appendChild(partnerMessage);
+        scrollToBottom();
+
     });
 
     // 전송 버튼 클릭 시 메시지 전송
