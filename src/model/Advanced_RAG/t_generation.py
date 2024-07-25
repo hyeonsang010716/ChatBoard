@@ -95,7 +95,7 @@ async def main():
         answer = await conversation.generate_reply(question, game_name, img_file_path, player_num)
         print(f"Question: {question}")
         print(f"Answer: {answer}")
-        print("-" * 50)
+        # print("-" * 50)
 
 if __name__ == "__main__":
     import asyncio
