@@ -35,7 +35,7 @@ body {
 #search_area input[type="text"] {
     width: 913px;
     height: 61px;
-    padding-left: 13px;
+    padding-left: 23px;
     font-size: 28px;
     border: 1px solid #ccc;
     border-radius: 20px;
@@ -116,6 +116,34 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-top: 20px;
+}
+
+.noGamesAlert {
+    display: inline-flex;
+    width: 100%;
+    flex-direction: column; /* 가로로 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    text-align: center;
+    /* height: 100vh; 페이지 높이 전체를 사용하여 가운데 정렬 */
+}
+
+.noGamesAlert img {
+    width: 40px;
+    margin-top: 15px;
+}
+
+.noGamesAlert p {
+    margin: 0; /* p 태그의 기본 마진 제거 */
+    padding: 10px; /* 여백 추가 */
+    font-size: 30px;
+}
+
+.noGamesAlert #email {
+    margin: 0;
+    padding: 10px;
+    font-size: 20px;
+    color: grey;
 }
 
 .boardgame-card {
