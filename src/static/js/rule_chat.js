@@ -5,8 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileAttach = document.getElementById('fileAttach');
     const fileInput = document.getElementById('fileInput');
     const messagesContainer = document.getElementById('messages');
+    const applyButton = document.getElementById('applyButton')
     let messageText = messageInput.value.trim();
     let formData = new FormData();
+    let players = 0;
+
 
     // 자동 스크롤을 위한 함수
     function scrollToBottom() {
@@ -36,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         fetch('/chatboard/img_upload', {
             method: 'POST',
-            body: formData
+            body: formData,
+            players: players
           })
           .then(response => response.json())
           .then(data => {
@@ -59,8 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function sendQuestionQuery() {
         const data = {
             message: formData.get("message"),
-            name: formData.get("name")
+            name: formData.get("name"),
+            players: players
         };
+        console.log(data)
         const queryString = new URLSearchParams(data).toString();
         fetch('/chatboard/chatting?' + queryString)
             .then(response => {
@@ -173,6 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
+    
+    applyButton.addEventListener('click', () => {
+        players = document.getElementById('howMany').value;
+        document.getElementById('notification').style.display = 'none';
+    });
 
     scrollToBottom(); // 새로운 콘텐츠 로드시 스크롤 최하단으로 보내기
 });
+

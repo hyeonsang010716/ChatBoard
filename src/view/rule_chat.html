@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대화창 레이아웃</title>
     <link rel="stylesheet" href="../static/css/rule_chat.css">
-    <script src="../static/js/rule_chat.js"></script>
-    <script src="../static/js/rule_chat_anim.js"></script>
 </head>
 <body>
     <div class="container">
@@ -54,6 +52,22 @@
             <div style="background-color: rgba(0,0,0,0); height: 50px;"></div>
             <!-- input-container를 messages 하단에 위치시킵니다 -->
             <div class="input-container">
+                <div id="notification" class="notification">
+                    <span>플레이 하고 있는 인원 수를 정해 주세요</span>
+                    <select id="howMany">
+                        <option value="0">상관 없음</option>
+                        <option value="1">1인</option>
+                        <option value="2">2인</option>
+                        <option value="3">3인</option>
+                        <option value="4">4인</option>
+                        <option value="5">5인</option>
+                        <option value="6">6인</option>
+                        <option value="7">7인</option>
+                        <option value="8">8인</option>
+                        <option value="9">9인</option>
+                    </select>
+                    <button id="applyButton">확인</button>
+                </div>
                 <button id="fileAttach">파일</button>
                 <input type="file" id="fileInput" name="file" style="display: none;">
                 <input type="text" id="messageInput" placeholder="해당 게임에 대해 질문 하고 싶은 내용을 입력 해주세요!" />
@@ -61,6 +75,8 @@
             </div>
         </div>
     </div>
+    <script src="../static/js/rule_chat.js"></script>
+    <script src="../static/js/rule_chat_anim.js"></script>
 </body>
 </html>
 
