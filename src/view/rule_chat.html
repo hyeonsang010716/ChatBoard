@@ -10,27 +10,8 @@
     <div class="container">
         <div class="content">
             <img src="https://i.ibb.co/DWRWkFh/logo.png " alt="ChatBoard" onclick="window.location.href='/chatboard/main-page'" style="cursor:pointer;" class="logo">
-            <div class="round-frame">
-                <img src="{{ image | safe }}" alt="img" class="gameImg">
-                <div class="description">
-                    <h3>{{name}}</h3>
-                    플레이어 인원 수: {{players}}
-                    <br>
-                    연령: {{age}}
-                    <br>
-                    난이도: {{difficulty}}
-                    <br>
-                    게임 진행 시간: {{playtime}}
-                    <br>
-                    <button id="openDetail">게임 설명 보기</button>       
-                </div>
-                <div id="detail" class="detail">
-                    <div class="detail-content">
-                        <span id="closeDetail" class="close">&times;</span>
-                        <h2>게임 설명</h2>
-                        <p>{{description}}</p>
-                    </div>
-                </div>
+            <div class="round-frame" id="scriptFrame">
+                
             </div>
             
         </div>  

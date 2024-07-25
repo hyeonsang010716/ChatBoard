@@ -208,6 +208,29 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(gameData => {
                 console.log(gameData);
+                const description = document.getElementById("scriptFrame");
+                description.innerHTML = `
+                <img src="${gameData["image"]}" alt="img" class="gameImg">
+                <div class="description">
+                    <h3>${gameData["name"]} </h3>
+                    플레이어 인원 수: ${gameData["players"]} 
+                    <br>
+                    연령: ${gameData["age"]} 
+                    <br>
+                    난이도: ${gameData["difficulty"]} 
+                    <br>
+                    게임 진행 시간: ${gameData["playtime"]} 
+                    <br>
+                    <button id="openDetail" onclick="openDetailFrame()">게임 설명 보기</button>       
+                </div>
+                <div id="detail" class="detail">
+                    <div class="detail-content">
+                        <span id="closeDetail" onclick="closeDetailAnimation()">&times;</span>
+                        <h2>게임 설명</h2>
+                        <p>${gameData["description"]} </p>
+                    </div>
+                </div>
+                    `
             })
     } catch (error) {
         console.error('Error:', error);
