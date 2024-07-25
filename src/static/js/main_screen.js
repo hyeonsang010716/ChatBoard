@@ -141,10 +141,15 @@ function nameSearchSubmit(event) {
     event.preventDefault();
     console.log('Submit event fired');
 
-    const searchText = domElement.searchInput.value.toLowerCase();
+    // 입력된 검색어에서 모든 공백 제거
+    const searchText = domElement.searchInput.value.toLowerCase().trim().replace(/\s+/g, '');
     console.log('Search Text:', searchText);
 
-    const filteredGames = allBoardGames.filter(game => game.name.toLowerCase().includes(searchText));
+    const filteredGames = allBoardGames.filter(game => {
+        // 보드게임 이름에서도 모든 공백 제거
+        const gameName = game.name.toLowerCase().trim().replace(/\s+/g, '');
+        return gameName.includes(searchText);
+    });
     console.log('Filtered Games:', filteredGames);
     displayBoardGames(filteredGames);
 }
