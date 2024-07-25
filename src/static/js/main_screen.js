@@ -108,7 +108,10 @@ function createGameCard(game) {
 
 // data를 받아, 해당 data와 연결되는 주소로 이동하는 함수
 function postGameJson(data) {
-    const queryString = new URLSearchParams(data).toString();
+    const Data = {
+        name: data
+    };
+    const queryString = new URLSearchParams(Data).toString();
     window.location.href = '/chatboard/sub-page?' + queryString;
 }
 
