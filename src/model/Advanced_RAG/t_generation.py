@@ -29,32 +29,45 @@ class Conversation:
             openai_api_version=os.getenv("OPENAI_API_VERSION")
         )
 
-        system_prompt_str = """
+        system_prompt_str = f"""
         You are an assistant for question-answering tasks. 
         Use the following pieces of retrieved context to answer the question. 
         If you don't know the answer, just say that you don't know. 
         Use five sentences maximum and keep the answer concise.
+        Please provide your response in Korean.
         If an image description is provided, include the image description in your answer to the question.
-        Briefly explain the reasoning behind your answer.""".strip()
+        Briefly explain the reasoning behind your answer.
+        A situation like the one in the photo has occurred during a board game. Please explain the situation that has unfolded in the board game {game_name}. The number of players is {player_num}. Please refer to the number of players if necessary.
+        
+        Board game rules: {{context}}
+        """.strip()
+        
+        # 이미지 파일이 있는 경우에만 이미지 분석 실행
+        base64_image = []
+        if image_path != "":
+            base64_image = [{
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64,{img_model(image_path, game_name, player_num)}"
+                }
+            }]
 
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt_str),
                 MessagesPlaceholder(variable_name="chat_history"),
-                ("human", "Image: {image_desc}"),
-                ("human", "Question: {question}"),
-                ("human", "Context: {context}"),
+                HumanMessage(content=[
+                    *base64_image,
+                    {
+                        "type": "text",
+                        "text": f"Question: {query}"
+                    },
+                ]),
                 ("assistant", "Answer:")
             ]
         )
 
         docs = await async_retrieval_chain_rag_fusion(query, file_path)
-        
-        # 이미지 파일이 있는 경우에만 이미지 분석 실행
-        if image_path != "":
-            image_desc = img_model(image_path, game_name, player_num)
-        else: 
-            image_desc = "No image information"
         
         # 검색된 문서의 내용을 결합하여 컨텍스트 준비
         context = "\n".join([doc.page_content for doc, _ in docs[:4]])  # 상위 4개의 문서를 사용
@@ -64,8 +77,7 @@ class Conversation:
         # 응답 생성
         response = await question_answer_chain.ainvoke({
             "chat_history": self.memory.chat_memory.messages,
-            "image_desc": image_desc,
-            "question": query,
+            "query": query,
             "context": context
         })
 
@@ -81,7 +93,7 @@ async def main():
     search_folder = os.path.join(current_directory, 'data', 'photo')
     img_file_path = os.path.join(search_folder, "boardgame_ex.png")
     game_name = "halligalli.pdf"
-    player_num = "4"
+    player_num = "3"
     
     conversation = Conversation()
     
