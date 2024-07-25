@@ -2,7 +2,6 @@ from flask import Blueprint , render_template , request, redirect , url_for , js
 import os
 import json
 
-from model.test_llm import test_llm
 from model.Ai_reply import reply
 
 chatboard = Blueprint('chatboard' , __name__)
