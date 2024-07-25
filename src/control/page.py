@@ -72,6 +72,7 @@ async def chat():
     try:
         message = request.args.get('message')
         game_name = request.args.get('name')
+        players = request.args.get('players')
         if not message:
             return jsonify({'error': 'No message provided'}), 400
         json_file_path = await get_json_path()
@@ -84,7 +85,10 @@ async def chat():
         
         target_file_name = await get_eng_name(data , game_name)
         print("메시지 :", message)
-        query = await generate_reply(message , target_file_name , "")
+        if players == '0':
+            players = 'It doesn\'t matter how many people it is'
+            print(players)
+        query = await generate_reply(message , target_file_name , "" , players)
         return query , 200
         # return reply(message, target_file_name), 200
     except Exception as e:
@@ -102,7 +106,7 @@ async def img_upload():
         name = request.files['file']
         game_name = request.form.get('name')
         message = request.form.get('message')
-        # players = request.form.get('players')
+        players = request.form.get('players')
         json_file_path = await get_json_path()
         if os.path.exists(json_file_path):
             with open(json_file_path, 'r', encoding='utf-8') as json_file:
@@ -115,7 +119,7 @@ async def img_upload():
         name.save(UPLOAD_FOLDER)
         print("img_file_path" , UPLOAD_FOLDER)
         print("message :" , message)
-        query = await generate_reply(message , target_file_name , UPLOAD_FOLDER)
+        query = await generate_reply(message , target_file_name , UPLOAD_FOLDER , players)
         return jsonify({'data' : query}), 200
     except Exception as e:
         chatboard.logger.error(f"Unhandled exception: {e}")
