@@ -34,9 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sendQuestionQueryWithImage() {
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
         fetch('/chatboard/img_upload', {
             method: 'POST',
             body: formData,
@@ -46,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(data => {
             removeLoading();
             makeResponseChat(data["data"]);
-            console.log('Success:', data);
           })
           .catch(error => {
             removeLoading();
@@ -66,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
             name: formData.get("name"),
             players: players
         };
-        console.log(data)
         const queryString = new URLSearchParams(data).toString();
         fetch('/chatboard/chatting?' + queryString)
             .then(response => {
@@ -76,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.text();
             })
             .then(data => {
-                console.log(data);
                 removeLoading();
                 makeResponseChat(data);
             })
@@ -191,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded event fired');
+    //console.log('DOMContentLoaded event fired');
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const Name = urlParams.get('name');
@@ -207,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(gameData => {
-                console.log(gameData);
                 const description = document.getElementById("scriptFrame");
                 description.innerHTML = `
                 <img src="${gameData["image"]}" alt="img" class="gameImg">
