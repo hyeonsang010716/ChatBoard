@@ -49,6 +49,8 @@ def game_detail():
     name = request.args.get('name')
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_file_path = os.path.abspath(os.path.join(current_dir , '..' , '..' , 'data' , 'game_info.json'))
+
+    
     if os.path.exists(json_file_path):
         with open(json_file_path, 'r', encoding='utf-8') as json_file:
             try:
@@ -59,11 +61,11 @@ def game_detail():
         print('hi')
         return jsonify({"error": "File not found"}), 404
     for x in data['games']: 
+        print(x["name"])
         if x['name'] == name:
             print("전달 내용 :", x) 
-            return x , 200
-        else:
-            return jsonify({"error": "Error Not JSON"}), 400
+            return x , 200     
+    return jsonify({"error": "Error Not JSON"}), 400
 
 
 #채팅 데이터 LLM 전송
