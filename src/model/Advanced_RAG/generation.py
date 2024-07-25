@@ -2,8 +2,8 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
-from img_model import img_model
-from retrieval import async_retrieval_chain_rag_fusion
+from .img_model import img_model
+from .retrieval import async_retrieval_chain_rag_fusion
 
 def find_file_path(game_name):
     current_dir = os.path.dirname(os.path.abspath(__file__))

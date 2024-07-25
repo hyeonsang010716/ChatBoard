@@ -4,10 +4,10 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.abspath(os.path.join(current_dir, '..', '..'))
 sys.path.append(root_dir)
-from src.model.Advanced_RAG.generation import generate_reply
+from src.model.Advanced_RAG.t_generation import Conversation
 import json
 chatboard = Blueprint('chatboard' , __name__)
-
+conversation = Conversation()
 #메인 페이지 로드
 @chatboard.route('/main-page')
 def mainpage():
@@ -90,7 +90,7 @@ async def chat():
         if players == '0':
             players = 'It doesn\'t matter how many people it is'
             print(players)
-        query = await generate_reply(message , target_file_name , "" , players)
+        query = await conversation.generate_reply(message , target_file_name , "" , players)
         return query , 200
         # return reply(message, target_file_name), 200
     except Exception as e:
@@ -121,7 +121,7 @@ async def img_upload():
         name.save(UPLOAD_FOLDER)
         print("img_file_path" , UPLOAD_FOLDER)
         print("message :" , message)
-        query = await generate_reply(message , target_file_name , UPLOAD_FOLDER , players)
+        query = await conversation.generate_reply(message , target_file_name , UPLOAD_FOLDER , players)
         return jsonify({'data' : query}), 200
     except Exception as e:
         chatboard.logger.error(f"Unhandled exception: {e}")
