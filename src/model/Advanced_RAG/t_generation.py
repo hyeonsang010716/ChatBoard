@@ -2,8 +2,8 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
-from img_model import img_model
-from retrieval import async_retrieval_chain_rag_fusion
+from .img_model import img_model
+from .retrieval import async_retrieval_chain_rag_fusion
 from langchain.memory import ConversationBufferMemory
 from langchain_core.messages import HumanMessage, AIMessage
 

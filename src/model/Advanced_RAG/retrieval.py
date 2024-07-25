@@ -1,5 +1,5 @@
 import asyncio
-from query_translation import index_pdf, setup_query_generator
+from .query_translation import index_pdf, setup_query_generator
 from langchain.load import dumps, loads
 from langchain_community.callbacks.manager import get_openai_callback
 
