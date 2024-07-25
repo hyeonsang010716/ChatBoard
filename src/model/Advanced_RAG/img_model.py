@@ -87,25 +87,6 @@ def img_model(image_path: str, game_name: str, player_num: str) -> str:
         return response.content
     
     # 프롬프트 템플릿
-    # prompt = f'''
-    # As a board game expert, analyze the given image and extract:
-
-    # 1. Current progress
-    # 2. Number of players (confirmed: {player_num})
-    # 3. Each player's actions (based on cards and positions)
-    # 4. Precise item positions (cards, pieces, bell, etc.)
-
-    # **Describe exactly as seen**, detailing everything comprehensively. Be extremely specific about game-related objects.
-
-    # Note:
-    # - This is the {game_name} board game
-    # - Describe each player's area separately
-    # - Explain clearly in English
-    # - Use "No information available" if needed
-    # - Adhere to the format strictly
-
-    # The {player_num} player count is crucial. Assess game elements to confirm this, considering {game_name}'s typical setup and rules.
-    # '''
     prompt = f'''
     As a {game_name} expert, analyze the image and describe only the most crucial game elements:
 
@@ -134,29 +115,4 @@ if __name__ == "__main__":
     
     results = img_model(image_path, game_name, "4")
     print(results)
-
-# def img_model(image_path: str, max_size=(800, 800), quality=85) -> str:
-#     with Image.open(image_path) as img:
-#         img = img.convert("RGB")
-#         img.thumbnail(max_size)
-#         buffer = io.BytesIO()
-#         img.save(buffer, format="JPEG", quality=quality)  # Save the image to a buffer with JPEG compression
-#         buffer.seek(0)
-#         encoded_image = base64.b64encode(buffer.read()).decode('utf-8')
-#     return encoded_image
-
-# def img_model(img_file_path : str) -> str:
-#     load_dotenv()
-
-#     def encode_image(img_file_path):
-#         with open(img_file_path, "rb") as image_file:
-#             return base64.b64encode(image_file.read()).decode('utf-8')
-    
-#     if not img_file_path:
-#         raise FileNotFoundError("No image files found in the specified directory.")
-
-#     # 이미지 파일 인코딩
-#     encoded_image = encode_image(img_file_path)
-        
-#     return encoded_image
 
