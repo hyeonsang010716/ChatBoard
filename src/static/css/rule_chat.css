@@ -88,7 +88,7 @@ body {
     left: 10px;
     right: 10px;
     background: white;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 10px;
     border: 1px solid #f9deec;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2); /* Shadow to give floating effect */
@@ -123,7 +123,7 @@ body {
     background-color: #000;
     border-radius: 50%;
     margin: 5px;
-    animation: bounce 0.5s ease-in infinite alternate;
+    animation: bounce 0.6s ease-in infinite alternate;
 }
 
 .circle:nth-child(2) {
@@ -240,4 +240,29 @@ h2 {
 @keyframes slideOut {
     from { transform: translateY(0); opacity: 1; }
     to { transform: translateY(-100px); opacity: 0; }
+}
+
+
+.notification {
+    position: absolute;
+    width: 98.3%;
+    background-color: #f44336; /* 빨간색 배경 */
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+}
+
+.notification button {
+    background-color: white;
+    color: #f44336;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.notification button:hover {
+    background-color: #ddd;
 }
