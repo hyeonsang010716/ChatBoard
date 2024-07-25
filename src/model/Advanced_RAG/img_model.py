@@ -21,7 +21,8 @@ def img_model(image_path: str, game_name: str, player_num: str) -> str:
     )
     
     # 사진 압축 함수
-    def compress_model(image_path: str, quality=30) -> str:
+    def compress_model(image_path: str, max_size=(600, 600), quality=30) -> str:
+        
         # current_directory = os.getcwd()
         # output_dir = os.path.join(current_directory, 'data', 'photo_enhanced')
         #  # 이미지 경로 확인
@@ -41,6 +42,7 @@ def img_model(image_path: str, game_name: str, player_num: str) -> str:
         
         with Image.open(image_path) as img:
             enhanced_img = img.convert("RGB")
+            enhanced_img.thumbnail(max_size)
             
             # 이미지 크기를 출력
             width, height = enhanced_img.size
@@ -85,24 +87,39 @@ def img_model(image_path: str, game_name: str, player_num: str) -> str:
         return response.content
     
     # 프롬프트 템플릿
+    # prompt = f'''
+    # As a board game expert, analyze the given image and extract:
+
+    # 1. Current progress
+    # 2. Number of players (confirmed: {player_num})
+    # 3. Each player's actions (based on cards and positions)
+    # 4. Precise item positions (cards, pieces, bell, etc.)
+
+    # **Describe exactly as seen**, detailing everything comprehensively. Be extremely specific about game-related objects.
+
+    # Note:
+    # - This is the {game_name} board game
+    # - Describe each player's area separately
+    # - Explain clearly in English
+    # - Use "No information available" if needed
+    # - Adhere to the format strictly
+
+    # The {player_num} player count is crucial. Assess game elements to confirm this, considering {game_name}'s typical setup and rules.
+    # '''
     prompt = f'''
-    As a board game expert, analyze the given image and extract:
+    As a {game_name} expert, analyze the image and describe only the most crucial game elements:
 
-    1. Current progress
-    2. Number of players (confirmed: {player_num})
-    3. Each player's actions (based on cards and positions)
-    4. Precise item positions (cards, pieces, bell, etc.)
+    1. Cards/tiles in play
+    2. Player pieces or tokens
+    3. Central game board or play area
+    4. Any special items (e.g., dice, timer, special cards)
 
-    **Describe exactly as seen**, detailing everything comprehensively. Be extremely specific about game-related objects.
+    Describe these elements briefly but precisely. Ignore background details or non-game objects. Confirm the {player_num} player count if possible.
 
     Note:
-    - This is the {game_name} board game
-    - Describe each player's area separately
-    - Explain clearly in English
-    - Use "No information available" if needed
-    - Adhere to the format strictly
-
-    The {player_num} player count is crucial. Assess game elements to confirm this, considering {game_name}'s typical setup and rules.
+    - Focus solely on {game_name}-specific items
+    - Provide a concise yet clear description in 8 lines or fewer. Each line should contain a key observation about the game state.
+    - Use "Not visible" for missing key elements
     '''
     
     result = extract_info_from_image(image_path, prompt, game_name)
