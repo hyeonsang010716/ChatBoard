@@ -2,7 +2,7 @@ from PIL import Image
 from langchain_openai import AzureChatOpenAI
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 from dotenv import load_dotenv
-import cv2
+# import cv2
 import io
 import os
 import base64
