@@ -17,14 +17,14 @@ def mainpage():
 @chatboard.route('/sub-page')
 def subpage():
     name = request.args.get('name')
-    description = request.args.get('description')
-    players = request.args.get('players')
-    difficulty = request.args.get('difficulty')
-    age = request.args.get('age')
-    playtime = request.args.get('playtime')
-    image = request.args.get('image')
-    print(name, description , players, difficulty, age , playtime)
-    return render_template("rule_chat.html" , name=name, description=description , players=players , difficulty=difficulty, age=age , playtime=playtime , image = image)
+    # description = request.args.get('description')
+    # players = request.args.get('players')
+    # difficulty = request.args.get('difficulty')
+    # age = request.args.get('age')
+    # playtime = request.args.get('playtime')
+    # image = request.args.get('image')
+    # print(name, description , players, difficulty, age , playtime)
+    return render_template("rule_chat.html" , name=name)
 
 #게임 관련 JSON 데이터 전송
 @chatboard.route('/game_json' , methods=['GET'])
@@ -40,9 +40,31 @@ def game_json():
     else:
         print('hi')
         return jsonify({"error": "File not found"}), 404
-    print(data)
-    print(jsonify(data))
+    # print(jsonify(data))
     return jsonify(data)
+
+#게임 관련 JSON 데이터 전송
+@chatboard.route('/game_detail' , methods=['GET'])
+def game_detail():
+    name = request.args.get('name')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    json_file_path = os.path.abspath(os.path.join(current_dir , '..' , '..' , 'data' , 'game_info.json'))
+    if os.path.exists(json_file_path):
+        with open(json_file_path, 'r', encoding='utf-8') as json_file:
+            try:
+                data = json.load(json_file)
+            except json.JSONDecodeError:
+                return jsonify({"error": "Error decoding JSON"}), 400
+    else:
+        print('hi')
+        return jsonify({"error": "File not found"}), 404
+    for x in data['games']: 
+        if x['name'] == name:
+            print("전달 내용 :", x) 
+            return x , 200
+        else:
+            return jsonify({"error": "Error Not JSON"}), 400
+
 
 #채팅 데이터 LLM 전송
 @chatboard.route('/chatting', methods=['GET'])

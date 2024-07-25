@@ -190,3 +190,27 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollToBottom(); // 새로운 콘텐츠 로드시 스크롤 최하단으로 보내기
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded event fired');
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const Name = urlParams.get('name');
+        const data = {
+            name: Name
+        };
+        const queryString = new URLSearchParams(data).toString();
+        fetch('/chatboard/game_detail?' + queryString)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(gameData => {
+                console.log(gameData);
+            })
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+});
