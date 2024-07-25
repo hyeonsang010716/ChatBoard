@@ -17,13 +17,6 @@ def mainpage():
 @chatboard.route('/sub-page')
 def subpage():
     name = request.args.get('name')
-    # description = request.args.get('description')
-    # players = request.args.get('players')
-    # difficulty = request.args.get('difficulty')
-    # age = request.args.get('age')
-    # playtime = request.args.get('playtime')
-    # image = request.args.get('image')
-    # print(name, description , players, difficulty, age , playtime)
     return render_template("rule_chat.html" , name=name)
 
 #게임 관련 JSON 데이터 전송
@@ -127,7 +120,7 @@ async def img_upload():
         chatboard.logger.error(f"Unhandled exception: {e}")
         return jsonify({'error': str(e)}), 500
     
-
+#한글 게임 파일 영어로 Change
 async def get_eng_name(data , game_name):
     eng_game_name = ""
     for x in data['games']:
@@ -138,6 +131,7 @@ async def get_eng_name(data , game_name):
     print("eng_game name :" , target_file_name)
     return target_file_name
 
+#현재 경로에 있는 json 파일 가져오기
 async def get_json_path():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_file_path = os.path.abspath(os.path.join(current_dir , '..' , '..' , 'data' , 'game_info.json'))
