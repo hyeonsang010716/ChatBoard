@@ -2,12 +2,14 @@ from PIL import Image
 from langchain_openai import AzureChatOpenAI
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 from dotenv import load_dotenv
-# import cv2
+import cv2
 import io
 import os
 import base64
+import numpy as np
+import matplotlib.pyplot as plt
 
-def img_model(image_path: str, game_name: str,) -> str:
+def img_model(image_path: str, game_name: str, player_num: str) -> str:
     load_dotenv()
     
     # Azure OpenAI 클라이언트 설정
@@ -19,38 +21,51 @@ def img_model(image_path: str, game_name: str,) -> str:
     )
     
     # 사진 압축 함수
-    # def compress_model(image_path: str, max_size=(700, 700), quality=95) -> str:
-    #     with Image.open(image_path) as img:
-    #         img = img.convert("RGB")
-    #         img.thumbnail(max_size)
+    def compress_model(image_path: str, max_size=(600, 600), quality=30) -> str:
+        
+        # current_directory = os.getcwd()
+        # output_dir = os.path.join(current_directory, 'data', 'photo_enhanced')
+        #  # 이미지 경로 확인
+        # if not os.path.exists(image_path):
+        #     raise FileNotFoundError(f"Image file not found at path: {image_path}")
+        
+        # img = cv2.imread(image_path)
+        # # 라플라시안 필터를 사용하여 이미지 샤프닝
+        # kernel = np.array([[0, -1, 0],
+        #                 [-1, 5,-1],
+        #                 [0, -1, 0]])
+        # sharpened = cv2.filter2D(img, -1, kernel)
+
+        # # 결과 이미지를 저장
+        # output_image_path = os.path.join(output_dir, os.path.basename(image_path).rsplit('.', 1)[0] + "_sharpened.jpg")
+        # cv2.imwrite(output_image_path, sharpened, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
+        
+        with Image.open(image_path) as img:
+            enhanced_img = img.convert("RGB")
+            enhanced_img.thumbnail(max_size)
             
-    #         # 압축된 이미지 크기를 출력
-    #         width, height = img.size
-    #         print(f"Compressed image size: {width}x{height}")
+            # 이미지 크기를 출력
+            width, height = enhanced_img.size
+            print(f"Compressed image size: {width}x{height}")
             
-    #         buffer = io.BytesIO()
-    #         img.save(buffer, format="JPEG", quality=quality)  # Save the image to a buffer with JPEG compression
-            
-    #         # 압축된 이미지를 파일로 저장
-    #         current_directory = os.getcwd()
-    #         output_dir = os.path.join(current_directory, 'data', 'compressed_images')
-    #         os.makedirs(output_dir, exist_ok=True)
-    #         output_path = os.path.join(output_dir, os.path.basename(image_path))
-    #         with open(output_path, "wb") as f:
-    #             f.write(buffer.read())
+            buffer = io.BytesIO()
+            enhanced_img.save(buffer, format="JPEG", quality=quality)  # Save the image to a buffer with JPEG compression
+            print("해상도 낮추기 완료")
                 
-    #         buffer.seek(0)
-    #         encoded_image = base64.b64encode(buffer.read()).decode('utf-8')
-    #     return encoded_image
+            buffer.seek(0)
+            encoded_image = base64.b64encode(buffer.read()).decode('utf-8')
+            print("인코딩 완료")
+        return encoded_image
     
     def encode_image(image_path: str) -> str:
         with open(image_path, "rb") as image_file:
             encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+            print("인코딩 완료")
         return encoded_image
 
     def extract_info_from_image(image_path, prompt, game_name):
 
-        base64_image = encode_image(image_path)
+        base64_image = compress_model(image_path)
 
         messages = [
             SystemMessage(content=prompt),
@@ -63,8 +78,8 @@ def img_model(image_path: str, game_name: str,) -> str:
                 },
                 {
                     "type": "text",
-                    "text": "보드게임 중에 사진과 같은 상황이 발생했습니다. 보드게임이 {game_name}임을 명심하고, {game_name}에서 벌어진 이 상황에 대한 내용을 설명해주세요."
-                }
+                    "text": "A situation like the one in the photo has occurred during a board game. Please explain the situation that has unfolded in the board game {game_name}. The number of players is {player_num}. Please refer to the number of players if necessary."
+                },
             ])
         ]
 
@@ -72,28 +87,39 @@ def img_model(image_path: str, game_name: str,) -> str:
         return response.content
     
     # 프롬프트 템플릿
+    # prompt = f'''
+    # As a board game expert, analyze the given image and extract:
+
+    # 1. Current progress
+    # 2. Number of players (confirmed: {player_num})
+    # 3. Each player's actions (based on cards and positions)
+    # 4. Precise item positions (cards, pieces, bell, etc.)
+
+    # **Describe exactly as seen**, detailing everything comprehensively. Be extremely specific about game-related objects.
+
+    # Note:
+    # - This is the {game_name} board game
+    # - Describe each player's area separately
+    # - Explain clearly in English
+    # - Use "No information available" if needed
+    # - Adhere to the format strictly
+
+    # The {player_num} player count is crucial. Assess game elements to confirm this, considering {game_name}'s typical setup and rules.
+    # '''
     prompt = f'''
-    You are the best expert in interpreting board games. Carefully analyze the given one or multiple images of the board game in progress and accurately extract the following information.
-    The provided photo is at the point of the user's question. **Describe it exactly as you see it**, as if you were explaining a single picture, detailing the arrangement and objects comprehensively. Describe everything so precisely that someone could draw the exact picture just by listening to your explanation.
-    Make sure to mention every single detail!! Provide very, very detailed answers about objects related to the board game.
+    As a {game_name} expert, analyze the image and describe only the most crucial game elements:
 
-    Information to extract:
-    - Current progress
-    - Number of players Number of players -> The current number of players is three.(pay special attention to the number of card piles, hands, player pieces, and player actions)
-    - What each player is doing (based on the cards they have played and their positions)
-    - Where and how each item is positioned in the current game situation (describe the position of each card, game pieces, the bell if present, and any other objects)
+    1. Cards/tiles in play
+    2. Player pieces or tokens
+    3. Central game board or play area
+    4. Any special items (e.g., dice, timer, special cards)
 
-    Precautions:
-    1. The board game shown in the photo is the {game_name} board game. Do not confuse it with other board games.
-    2. Clearly distinguish between different players by describing each player's area separately, including their cards, hands, and actions.
-    3. Explain in a way that the LLM can easily understand.
-    4. If there is no information, set the field to ("No information available").
-    5. Strictly adhere to the String format.
+    Describe these elements briefly but precisely. Ignore background details or non-game objects. Confirm the {player_num} player count if possible.
 
-    Additional instructions:
-    Carefully analyze one or multiple images to provide accurate information.
-    It is very important to determine the number of players. Carefully judge the objects, such as the number of card piles, game pieces, and the positions of the players, to accurately determine the number of players, considering the typical setup and rules of the {game_name} board game.
-
+    Note:
+    - Focus solely on {game_name}-specific items
+    - Provide a concise yet clear description in 8 lines or fewer. Each line should contain a key observation about the game state.
+    - Use "Not visible" for missing key elements
     '''
     
     result = extract_info_from_image(image_path, prompt, game_name)
@@ -106,7 +132,7 @@ if __name__ == "__main__":
     image_path = os.path.join(search_folder, "rummikub.jpg")
     game_name = "rummikub"
     
-    results = img_model(image_path, game_name)
+    results = img_model(image_path, game_name, "3")
     print(results)
 
 # def img_model(image_path: str, max_size=(800, 800), quality=85) -> str:
