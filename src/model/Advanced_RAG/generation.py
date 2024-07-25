@@ -28,7 +28,7 @@ async def generate_reply(query, game_name_file, image_path: str):
     Use the following pieces of retrieved context to answer the question. 
     If you don't know the answer, just say that you don't know. 
     Use three sentences maximum and keep the answer concise.
-    Answer the question in Korean.""".strip()
+    If an image description is provided, include the image description in your answer to the question.""".strip()
 
     prompt = ChatPromptTemplate.from_messages(
         [
@@ -63,10 +63,13 @@ async def generate_reply(query, game_name_file, image_path: str):
 
 # Example usage
 async def main():
-    game_name = "Bang.pdf"
-    question = "무법자들이 모두 죽으면 어떻게 돼?"
+    current_directory = os.getcwd()
+    search_folder = os.path.join(current_directory, 'data', 'photo')
+    img_file_path = os.path.join(search_folder, "boardgame_ex.png")
+    game_name = "halligalli.pdf"
+    question = "사진에서 라임이 총 몇개야?"
     
-    answer = await generate_reply(question, game_name)
+    answer = await generate_reply(question, game_name, img_file_path)
     print(f"Question: {question}")
     print(f"Answer: {answer}")
 
