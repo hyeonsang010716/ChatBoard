@@ -4,7 +4,16 @@ from dotenv import load_dotenv
 import os
 from retrieval import async_retrieval_chain_rag_fusion
 
-async def generate_reply(query, file_path):
+def find_file_path(game_name):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.abspath(os.path.join(current_dir , '..' , '..', '..'))
+    search_folder = os.path.join(file_path, 'data')
+    game_file_path = os.path.join(search_folder, game_name)
+    return game_file_path
+
+async def generate_reply(query, game_name):
+    file_path = find_file_path(game_name)
+
     load_dotenv()
 
     azure_model = AzureChatOpenAI(
@@ -45,10 +54,10 @@ async def generate_reply(query, file_path):
 
 # Example usage
 async def main():
-    file_path = "/root/LLM_Bootcamp/pythonProject/data/Bang.pdf"
+    game_name = "Bang.pdf"
     question = "무법자들이 모두 죽으면 어떻게 돼?"
     
-    answer = await generate_reply(question, file_path)
+    answer = await generate_reply(question, game_name)
     print(f"Question: {question}")
     print(f"Answer: {answer}")
 
