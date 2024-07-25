@@ -245,12 +245,12 @@ h2 {
 
 .notification {
     position: absolute;
-    width: 98%;
+    width: 98.3%;
     background-color: #f44336; /* 빨간색 배경 */
     color: white;
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 8px;
 }
 
