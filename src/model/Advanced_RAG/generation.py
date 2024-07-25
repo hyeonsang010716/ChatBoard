@@ -12,7 +12,7 @@ def find_file_path(game_name):
     game_file_path = os.path.join(search_folder, game_name)
     return game_file_path
 
-async def generate_reply(query, game_name_file, image_path: str):
+async def generate_reply(query, game_name_file, image_path: str, player_num: str):
     file_path = find_file_path(game_name_file)
     game_name = game_name_file.rsplit('.', 1)[0]
 
@@ -44,7 +44,7 @@ async def generate_reply(query, game_name_file, image_path: str):
     
     # Run image analysis only if you have an image file
     if image_path != "":
-        image_desc = img_model(image_path, game_name)
+        image_desc = img_model(image_path, game_name, player_num)
     else: image_desc = "No image information"
     
     # Prepare the context by joining the content of retrieved documents
@@ -66,10 +66,11 @@ async def main():
     current_directory = os.getcwd()
     search_folder = os.path.join(current_directory, 'data', 'photo')
     img_file_path = os.path.join(search_folder, "boardgame_ex.png")
+    player_num = "3"
     game_name = "halligalli.pdf"
     question = "사진에서 라임이 총 몇개야?"
     
-    answer = await generate_reply(question, game_name, img_file_path)
+    answer = await generate_reply(question, game_name, img_file_path, player_num)
     print(f"Question: {question}")
     print(f"Answer: {answer}")
 
