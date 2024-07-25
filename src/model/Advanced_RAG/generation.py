@@ -2,8 +2,8 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
-from .img_model import img_model
-from .retrieval import async_retrieval_chain_rag_fusion
+from img_model import img_model
+from retrieval import async_retrieval_chain_rag_fusion
 
 def find_file_path(game_name):
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -65,10 +65,10 @@ async def generate_reply(query, game_name_file, image_path: str, player_num: str
 async def main():
     current_directory = os.getcwd()
     search_folder = os.path.join(current_directory, 'data', 'photo')
-    img_file_path = os.path.join(search_folder, "boardgame_ex.png")
-    player_num = "3"
+    img_file_path = os.path.join(search_folder, "halli.jpg")
+    player_num = "4"
     game_name = "halligalli.pdf"
-    question = "사진에서 라임이 총 몇개야?"
+    question = "사진에서 딸기가 총 몇개야?"
     
     answer = await generate_reply(question, game_name, img_file_path, player_num)
     print(f"Question: {question}")
