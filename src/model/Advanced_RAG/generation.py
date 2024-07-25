@@ -2,8 +2,8 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
-from img_model import img_model
-from retrieval import async_retrieval_chain_rag_fusion
+from .img_model import img_model
+from .retrieval import async_retrieval_chain_rag_fusion
 
 def find_file_path(game_name):
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -48,7 +48,7 @@ async def generate_reply(query, game_name_file, image_path: str):
     else: image_desc = "No image information"
     
     # Prepare the context by joining the content of retrieved documents
-    context = "\n".join([doc.page_content for doc, _ in docs[:3]])  # Using top 3 documents
+    context = "\n".join([doc.page_content for doc, _ in docs[:4]])  # Using top 3 documents
 
     question_answer_chain = prompt | azure_model
 
