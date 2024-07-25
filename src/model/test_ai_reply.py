@@ -62,7 +62,6 @@ async def reply(text: str, target_file_name: str, img_file_path: str) -> str:
     p = os.path.abspath(os.path.join(current_dir , '..' , '..'))
     search_folder = os.path.join(p, 'data')
     file_path = os.path.join(search_folder, target_file_name)
-    print(file_path)
     
     game_name = target_file_name.rsplit('.', 1)[0]
     
