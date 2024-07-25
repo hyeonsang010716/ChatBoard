@@ -98,7 +98,7 @@ function createGameCard(game) {
         try {
             // console.log('Game selected:', game.name);
             // 성공적으로 전송 후, 특정 페이지로 이동
-            postGameJson(game);
+            postGameJson(game.name);
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
