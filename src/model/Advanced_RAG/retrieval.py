@@ -40,7 +40,8 @@ async def async_retrieve(query, retriever):
     return await retriever.ainvoke(query)
 
 
-async def async_retrieval_chain_rag_fusion(question, generate_queries, file_path):
+async def async_retrieval_chain_rag_fusion(question, file_path):
+    generate_queries = setup_query_generator()
     retriever = index_pdf(file_path)
     queries = await generate_queries.ainvoke({"question": question})
     tasks = [async_retrieve(query, retriever) for query in queries]
@@ -52,12 +53,11 @@ async def async_retrieval_chain_rag_fusion(question, generate_queries, file_path
 
 async def main():
     file_path = "/root/LLM_Bootcamp/pythonProject/data/Bang.pdf"
-    generate_queries = setup_query_generator()
     question1 = "무법자들이 모두 죽으면 어떻게 돼?"
     question2 = "배신자가 게임에서 이기는 방법은?"
 
     with get_openai_callback() as cb:
-        docs = await async_retrieval_chain_rag_fusion(question1, generate_queries, file_path)
+        docs = await async_retrieval_chain_rag_fusion(question1, file_path)
 
         # 페이지 내용 출력
         for doc, score in docs:
@@ -66,7 +66,7 @@ async def main():
 
         print("\n\n\n")
 
-        docs = await async_retrieval_chain_rag_fusion(question2, generate_queries, file_path)
+        docs = await async_retrieval_chain_rag_fusion(question2, file_path)
 
         # 페이지 내용 출력
         for doc, score in docs:
