@@ -21,7 +21,7 @@ def img_model(image_path: str, game_name: str, player_num: str) -> str:
     )
     
     # 사진 압축 함수
-    def compress_model(image_path: str, max_size=(600, 600), quality=30) -> str:
+    def compress_model(image_path: str, max_size=(600, 600), quality=40) -> str:
         
         # current_directory = os.getcwd()
         # output_dir = os.path.join(current_directory, 'data', 'photo_enhanced')
@@ -129,10 +129,10 @@ def img_model(image_path: str, game_name: str, player_num: str) -> str:
 if __name__ == "__main__":
     current_directory = os.getcwd()
     search_folder = os.path.join(current_directory, 'data', 'photo')
-    image_path = os.path.join(search_folder, "rummikub.jpg")
-    game_name = "rummikub"
+    image_path = os.path.join(search_folder, "halli.jpg")
+    game_name = "halligalli"
     
-    results = img_model(image_path, game_name, "3")
+    results = img_model(image_path, game_name, "4")
     print(results)
 
 # def img_model(image_path: str, max_size=(800, 800), quality=85) -> str:

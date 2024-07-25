@@ -1,5 +1,5 @@
 import asyncio
-from .query_translation import index_pdf, setup_query_generator
+from query_translation import index_pdf, setup_query_generator
 from langchain.load import dumps, loads
 from langchain_community.callbacks.manager import get_openai_callback
 
@@ -41,7 +41,6 @@ async def async_retrieve(query, retriever):
 
 
 async def async_retrieval_chain_rag_fusion(question, file_path):
-    print("good" , question , file_path )
     generate_queries = setup_query_generator()
     retriever = index_pdf(file_path)
     queries = await generate_queries.ainvoke({"question": question})
