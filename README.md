@@ -43,7 +43,25 @@ A와 B와 C가 3인용 보드 게임을 진행하고 있었다. 주사위를 굴
 (자유롭게 작성)
 
 ## 3.3. 필요한 라이브러리
-(자유롭게 작성)
+### 사용된 목록
+```python
+Flask==2.2.5
+Flask-Cors==4.0.1
+python-dotenv==1.0.1
+langchain==0.2.10
+langchain-community==0.2.9
+langchain-core==0.2.22
+langchain-openai==0.1.17
+langchain-text-splitters==0.2.2
+langsmith==0.1.93
+pypdf==4.3.1
+python-dotenv==1.0.1
+typing_extensions==4.12.2
+typing-inspect==0.9.0
+```
+### Terminal 에서 실행
+파일이 있는 디렉토리에서 하단의 명령 실행
+- `pip install -r requirements.txt` 
 
 ##  4. 화면설계 및 기능 구현
 (자유롭게 작성)
@@ -53,3 +71,6 @@ A와 B와 C가 3인용 보드 게임을 진행하고 있었다. 주사위를 굴
 
 ##  5.2. 개선 해야 할 사항
 (자유롭게 작성)
+
+##  6. 참고 사항
+시연 영상 링크 : https://youtu.be/YjaCYeKBIh8?si=xB7BuAm_qrgrkzFt
