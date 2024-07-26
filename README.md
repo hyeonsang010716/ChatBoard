@@ -79,10 +79,12 @@ typing-inspect==0.9.0
 ![chatboard_sequence_diagram](https://github.com/user-attachments/assets/eed5da70-0c19-4623-a999-5b19365f8792)
 
 ##  4.2. 화면설계 및 기능 구현
-(자유롭게 작성)
+|![main_screen](https://github.com/user-attachments/assets/11d6dab9-3839-4d82-860d-9f4b186596a8)|![Chat_screen](https://github.com/user-attachments/assets/33924226-1ea8-4ff5-b2ce-1efe459852ee)|
+|:---:|:---:|
+|메인 화면|챗봇 대화 화면|
 
 ##  5.1. 최종 결과
-(자유롭게 작성)
+사이트에 접근해서 사용자가 쉽게 원하는 보드게임에 대해서 검색 할 수 있었고, 
 
 ##  5.2. 개선 해야 할 사항
 (자유롭게 작성)
@@ -94,3 +96,4 @@ typing-inspect==0.9.0
 
 ##  7. 참고 사항
 시연 영상 링크 : https://youtu.be/YjaCYeKBIh8?si=xB7BuAm_qrgrkzFt
+세부 기능 영상 : https://youtu.be/PUaXsZAJu8U
