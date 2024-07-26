@@ -1,6 +1,6 @@
 # ChatBoard
 # 제작 서비스 소개
-![메인사진](https://github.com/user-attachments/assets/095674f0-f5f0-4d68-b547-a6c4db726222)
+![진짜 최종 사진](https://github.com/user-attachments/assets/1b73aab2-6be3-474d-80e1-741a9b79fc65)
 ## 프로젝트 명
 
 ChatBoard ~ Boardgame Assistant using LLM model
