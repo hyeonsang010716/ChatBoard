@@ -95,5 +95,5 @@ typing-inspect==0.9.0
  - 프로젝트 진행 중 파일을 읽어들일 때 파일 경로를 각자의 컴퓨터 절대 경로로 명시함으로써 발생한 충돌이 있었습니다. 이를 해결하기 위해, 이번 프로젝트에서는 `os.path`를 사용하여 상대 경로를 가져오도록 변경했습니다. 이를 통해 파일 경로 충돌을 효과적으로 회피할 수 있었고, 팀원들이 서로 다른 환경에서도 일관된 방식으로 파일을 접근할 수 있었습니다.
 
 ##  7. 참고 사항
-시연 영상 링크 : https://youtu.be/YjaCYeKBIh8?si=xB7BuAm_qrgrkzFt
-세부 기능 영상 : https://youtu.be/PUaXsZAJu8U
+- 시연 영상 링크 : https://youtu.be/YjaCYeKBIh8?si=xB7BuAm_qrgrkzFt
+- 세부 기능 영상 : https://youtu.be/PUaXsZAJu8U
