@@ -1,5 +1,5 @@
 # ChatBoard
-![logo](https://github.com/user-attachments/assets/902d05c4-e76b-4e7d-8be9-d0f08abb5a6f)
+<img src="https://github.com/user-attachments/assets/902d05c4-e76b-4e7d-8be9-d0f08abb5a6f  width="400" height="auto"/>
 #### 해당 작업은 국민대학교 2024 여름방학 LLM Application 부트캠프의 일환으로 진행 되었습니다.
 
 ## 1.1. 프로젝트 명
