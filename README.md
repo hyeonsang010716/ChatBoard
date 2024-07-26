@@ -72,7 +72,10 @@ typing-inspect==0.9.0
 파일이 있는 디렉토리에서 하단의 명령 실행
 - `pip install -r requirements.txt` 
 
-##  4. 화면설계 및 기능 구현
+##  4.1. Sequence Diagram
+![chatboard_sequence_diagram](https://github.com/user-attachments/assets/eed5da70-0c19-4623-a999-5b19365f8792)
+
+##  4.2. 화면설계 및 기능 구현
 (자유롭게 작성)
 
 ##  5.1. 최종 결과
