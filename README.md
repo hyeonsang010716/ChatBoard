@@ -1,5 +1,5 @@
 # ChatBoard
--여기에 사진 추가-
+![logo](https://github.com/user-attachments/assets/902d05c4-e76b-4e7d-8be9-d0f08abb5a6f)
 
 ## 1.1. 프로젝트 명
 ChatBoard ~ Boardgame Assistant using LLM model
