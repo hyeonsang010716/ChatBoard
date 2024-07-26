@@ -1,6 +1,6 @@
 # ChatBoard
 ![logo](https://github.com/user-attachments/assets/902d05c4-e76b-4e7d-8be9-d0f08abb5a6f)
-#### 해당 작업은 국민대학교 LLM Application Bootcamp의 일환으로 진행 되었습니다.
+#### 해당 작업은 국민대학교 2024 여름방학 LLM Application 부트캠프의 일환으로 진행 되었습니다.
 
 ## 1.1. 프로젝트 명
 ChatBoard ~ Boardgame Assistant using LLM model
@@ -34,14 +34,14 @@ A와 B와 C가 3인용 보드 게임을 진행하고 있었다. 주사위를 굴
 - 챗봇에게 질문 시 답변 받기
 
 ## 3.1. 개발환경
-* Front-end :
-* Server :
+* Front-end : 
+* Server : 
 * Back-end :
 * Developer Tools : VS Code
 * GitHub
 
 ## 3.2. 사용한 API
-```python
+```
 #East-US
 AZURE_OPENAI_API_KEY=
 AZURE_OPENAI_DEPLOYMENT=gpt-4o
@@ -54,7 +54,7 @@ LANGCHAIN_API_KEY=
 
 ## 3.3. 필요한 라이브러리
 ### 사용된 목록
-```python
+```
 Flask==2.2.5
 Flask-Cors==4.0.1
 python-dotenv==1.0.1
@@ -85,5 +85,7 @@ typing-inspect==0.9.0
 ##  5.2. 개선 해야 할 사항
 (자유롭게 작성)
 
-##  6. 참고 사항
+##  6. LLM 부트캠프를 통해 배운점
+
+##  7. 참고 사항
 시연 영상 링크 : https://youtu.be/YjaCYeKBIh8?si=xB7BuAm_qrgrkzFt
