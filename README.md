@@ -40,7 +40,16 @@ A와 B와 C가 3인용 보드 게임을 진행하고 있었다. 주사위를 굴
 * GitHub
 
 ## 3.2. 사용한 API
-(자유롭게 작성)
+```python
+#East-US
+AZURE_OPENAI_API_KEY=
+AZURE_OPENAI_DEPLOYMENT=gpt-4o
+AZURE_OPENAI_ENDPOINT=
+AZURE_OPENAI_REGION=
+OPENAI_API_VERSION=
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_API_KEY=
+```
 
 ## 3.3. 필요한 라이브러리
 ### 사용된 목록
