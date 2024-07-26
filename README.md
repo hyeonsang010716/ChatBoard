@@ -1,6 +1,6 @@
 # ChatBoard
 ![logo](https://github.com/user-attachments/assets/8130676a-b775-47b9-a3da-4fda8e95cf83)
-#### 해당 작업은 국민대학교 2024 여름방학 LLM Application 부트캠프의 일환으로 진행 되었습니다.
+#### 해당 프로젝트는 국민대학교 2024 여름방학 LLM Application 부트캠프의 일환으로 진행 되었습니다.
 
 ## 1.1. 프로젝트 명
 ChatBoard ~ Boardgame Assistant using LLM model
@@ -84,7 +84,7 @@ typing-inspect==0.9.0
 |메인 화면|챗봇 대화 화면|
 
 ##  5.1. 최종 결과
-사이트에 접근해서 사용자가 쉽게 원하는 보드게임에 대해서 검색 할 수 있었고, 
+사이트에 접근해서 사용자가 쉽게 원하는 보드게임에 대해서 검색 할 수 있었고, 챗봇과의 대화를 통해 사용자가 원하는 정보를 제공 해줄수 있었다.
 
 ##  5.2. 개선 해야 할 사항
 (자유롭게 작성)
